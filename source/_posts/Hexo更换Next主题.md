@@ -11,7 +11,7 @@ tags:
 通过上一篇文章搭完`Hexo`之后，觉得默认的主题`landscape`太单调了，所以就找了网上大热的`Next`来用，下面记录一下如何更改`Hexo`主题为`Next`，并且更改一些个性化内容。
 
 
-
+<!-- more -->
 
 
 ## 安装主题
@@ -159,3 +159,5 @@ $ hexo g -d
 
 ## 参考资料
 > https://theme-next.iissnan.com/
+>
+> https://segmentfault.com/a/1190000009544924

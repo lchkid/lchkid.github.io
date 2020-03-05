@@ -56,4 +56,6 @@
     </div>
   {%- endif %}
 </body>
+<!-- click love -->
+<script src="/js/clickLove.js"></script>
 </html>
