@@ -86,28 +86,26 @@ tags:
 
 1. 搭建`git`、`node.js`环境配置`ssh`和`git`。
 
-2. 安装hexo：
+2. 安装`hexo`：
 
    ```shell
    $ npm install -g hexo-cli
-   $ npm install hexo-deployer-git --save
    ```
-```
    
 3. 从`git`分支`clone`主目录：
 
    ```shell
-   $ mkdir /hexo
-   $ cd /hexo
    $ git clone -b hexo git@github.com:lchkid/lchkid.github.io.git
-```
-
+   ```
+   
    > Tips：如果在github的setting中设置hexo为default，就可以直接git clone而不加-b参数了。
 
 4. `hexo`初始化：
 
    ```shell
+   $ cd ./lchkid.github.io
    $ npm install
+   $ npm install hexo-deployer-git --save
    ```
 
 5. `hexo`渲染、发布即可：
