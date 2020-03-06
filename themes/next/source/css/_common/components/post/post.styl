@@ -73,14 +73,59 @@
 @import 'post-followme' if (hexo-config('follow_me'));
 
 
-// 文章内链接文本样式
+// code样式
+code {
+  background: #fffcd7;
+  color: #ff6060;
+  padding: 1px 2px;
+}
+
+// 超链接样式
 .post-body p a {
-  color: #00BFFF;
+  color: #6097ff;
   border-bottom: none;
-  border-bottom: 1px solid #00BFFF;
+  border-bottom: 1px solid #6097ff;
   &:hover {
-    color: #FF7F50;
+    color: #ff6060;
     border-bottom: none;
-    border-bottom: 1px solid #FF7F50;
+    border-bottom: 1px solid #ff6060;
+  }
+}
+
+// 阅读全文样式
+.btn {
+  color: #ff6060;
+  background-color: #fff;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid #ff6060;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:hover {
+    color: #fff;
+    background-color: #ff6060;
+    border-color: #ff6060;
+  }
+}
+
+// 底部文字样式
+.footer, .footer a {
+  color: #ffffff;
+  opacity: .8;
+  border: none;
+  
+  &:hover {
+    border: none;
   }
 }

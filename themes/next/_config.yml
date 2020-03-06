@@ -55,7 +55,7 @@ footer:
   icon:
     # Icon name in Font Awesome. See: https://fontawesome.com/v4.7.0/icons/
     # `heart` is recommended with animation in red (#ff0000).
-    name: heart
+    name: heartbeat
     # If you want to animate the icon, set it to true.
     animated: true
     # Change the color of icon, using Hex Code.
@@ -96,7 +96,7 @@ creative_commons:
   license: by-nc-sa
   sidebar: false
   post: true
-  language: zh
+  language: en
 
 
 # ---------------------------------------------------------------
@@ -865,11 +865,11 @@ motion:
 # Dependencies: https://github.com/theme-next/theme-next-pace
 # For more information: https://github.com/HubSpot/pace
 pace:
-  enable: false
+  enable: true
   # Themes list:
   # big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple
   # corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal
-  theme: loading-bar
+  theme: minimal
 
 # JavaScript 3D library.
 # Dependencies: https://github.com/theme-next/theme-next-three
