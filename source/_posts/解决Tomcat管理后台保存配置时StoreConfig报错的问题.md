@@ -7,7 +7,7 @@ tags:
 
 
 
-​		最近在测试（玩）`Tomcat`的管理后台，不过实际好像很少有用这个改配置的。只要用的少，遇到的问题就肯定多，这不刚开始在通过`Tomcat`的`Host Manager`添加虚拟主机（`Virtual Host`）的时候就遇到问题了。只要用的少，遇到的问题就肯定多，这不刚开始在通过Tomcat的Host Manager添加虚拟主机（Virtual Host）的时候就遇到问题了。
+​		最近在测试（玩）`Tomcat`的管理后台，不过实际好像很少有用这个改配置的。只要用的少，遇到的问题就肯定多，这不刚开始在通过`Tomcat`的`Host Manager`添加虚拟主机（`Virtual Host`）的时候就遇到问题了。
 
 
 <!-- more -->
@@ -15,7 +15,7 @@ tags:
 
 首先设置好`Name`和`App base`后点击`Add`添加`VH`：
 
-<img src="/images/20200310/tomcat-host-manager-add.png" style="zoom:50%;" />
+<img src="/images/20200310/tomcat-host-manager-add.png"  />
 
 看到提示信息：
 
