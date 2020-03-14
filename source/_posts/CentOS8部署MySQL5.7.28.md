@@ -6,9 +6,11 @@ tags:
 - MySQL
 ---
 
-==系统版本：CentOS Linux release 8.1.1911==
 
-==MySQL版本：5.7.28==
+
+**系统版本：CentOS Linux release 8.1.1911**
+
+**MySQL版本：5.7.28**
 
 
 
@@ -24,7 +26,7 @@ tags:
 $ rpm -qa|grep mariadb
 ```
 
-![](C:\Users\rickee\Desktop\mariadb.png)
+![](/images/20200314/mariadb.png)
 
 我的centos版本没装，如果有的话用以下命令卸载
 
@@ -40,7 +42,7 @@ $ rpm -e --nodeps mariadb
 $ rpm -qa | grep libaio
 ```
 
-![](C:\Users\rickee\Desktop\deps.png)
+![](/images/20200314/deps.png)
 
 
 <!-- more -->
@@ -78,7 +80,7 @@ $ rpm -ivh mysql-community-client-5.7.28-1.el7.x86_64.rpm
 $ rpm -ivh mysql-community-server-5.7.28-1.el7.x86_64.rpm
 ```
 
-![](C:\Users\rickee\Desktop\install.png)
+![](/images/20200314/install.png)
 
 装完检查一下安装是否成功：
 
@@ -86,7 +88,7 @@ $ rpm -ivh mysql-community-server-5.7.28-1.el7.x86_64.rpm
 $ mysqladmin --version
 ```
 
-![](C:\Users\rickee\Desktop\version.png)
+![](/images/20200314/version.png)
 
 
 
@@ -104,7 +106,7 @@ $ mysqld --initialize --user=mysql
 $ cat /var/log/mysqld.log
 ```
 
-![](C:\Users\rickee\Desktop\initialize.png)
+![](/images/20200314/initialize.png)
 
 此时我们可以看一下配置文件：
 
@@ -112,7 +114,7 @@ $ cat /var/log/mysqld.log
 $ cat /etc/my.cnf
 ```
 
-![](C:\Users\rickee\Desktop\conf.png)
+![](/images/20200314/conf.png)
 
 可以看到数据库目录在/var/lib/mysql，列一下主要的目录地址：
 
@@ -138,7 +140,7 @@ $ systemctl start mysqld
 $ systemctl status mysqld
 ```
 
-![](C:\Users\rickee\Desktop\start.png)
+![](/images/20200314/start.png)
 
 OK没问题，通过root和初始密码连接：
 
@@ -146,7 +148,7 @@ OK没问题，通过root和初始密码连接：
 $ mysql -uroot -p
 ```
 
-![](C:\Users\rickee\Desktop\link.png)
+![](/images/20200314/link.png)
 
 熟悉的界面是吧，别急，还得改一下初始密码：
 
@@ -156,7 +158,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '新的密码';
 
 注意默认配置下密码不能过于简单否则会报错，重新登录一下，搞定！
 
-![](C:\Users\rickee\Desktop\over.png)
+![](/images/20200314/over.png)
 
 
 
@@ -171,7 +173,7 @@ use mysql;
 SELECT host,user FROM user;
 ```
 
-![](C:\Users\rickee\Desktop\user.png)
+![](/images/20200314/user.png)
 
 显然现在只允许root通过本地连接，给它改成允许所有连接：
 
@@ -179,7 +181,7 @@ SELECT host,user FROM user;
 UPDATE user SET host='%' WHERE user='root';
 ```
 
-![](C:\Users\rickee\Desktop\update.png)
+![](/images/20200314/update.png)
 
 > 这里也可以用另一种方式：
 
@@ -195,7 +197,7 @@ flush privileges;
 
 用SQLyog连接一下试试：
 
-![](C:\Users\rickee\Desktop\sqlyoglink.png)
+![](/images/20200314/sqlyoglink.png)
 
 这样MySQL5.7.28就部署成功了。
 
