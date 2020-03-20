@@ -10,12 +10,12 @@ tags:
 
 ## 前言
 
-之前换了`Next`主题后又改了一些[简单的设置](/2020/03/05/Hexo更换Next主题/)，不过对有一些样式还是不满意，但是官方的`_config.yml`文件并没有提供这些选项，只能通过修改`CSS`的方式来改了。先是去网上搜了一些教程，因为版本原因很多教程都失效了，还得靠自己摸索。
+之前换了Next主题后又改了一些[简单的设置](/2020/03/05/Hexo更换Next主题/)，不过对有一些样式还是不满意，但是官方的`_config.yml`文件并没有提供这些选项，只能通过修改CSS的方式来改了。先是去网上搜了一些教程，因为版本原因很多教程都失效了，还得靠自己摸索。
 
 > 不同版本文件路径或者具体属性都不完全一样，本文基于[NexT 7.7.2](https://pisces.theme-next.org/next-7-7-2-released/)，食用本文需要一点点点CSS基础:D。
 
 
-<!-- more -->
+
 
 
 ## Next进阶美化
@@ -36,11 +36,12 @@ background-position: 0 -100px;  //微调背景图片位置
 ```
 
 
+<!-- more -->
 
 
 ### 鼠标点击爱心
 
-下载以下`js`文件放到`./themes/next/source/js/`目录中。
+下载以下js文件放到`./themes/next/source/js/`目录中。
 
 ```
 https://raw.githubusercontent.com/lchkid/lchkid.github.io/master/js/clickLove.js
@@ -64,7 +65,7 @@ https://raw.githubusercontent.com/lchkid/lchkid.github.io/master/js/clickLove.js
 <script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
 ```
 
-打开主题配置文件`_config.yml`，找到`custom_file_path`，去掉行首#使以下代码生效：
+打开主题配置文件`_config.yml`，找到`custom_file_path`，去掉行首`#`使以下代码生效：
 
 ```yaml
 footer: source/_data/footer.swig
@@ -143,7 +144,7 @@ color: #颜色;
 
 ### 修改底部文字样式
 
-打开`./themes/next/source/css/_common/outline/footer/footer.styl`，找到.footer，修改以下代码：
+打开`./themes/next/source/css/_common/outline/footer/footer.styl`，找到`.footer`，修改以下代码：
 
 ```css
 color: #颜色;
@@ -158,7 +159,7 @@ border: none;
 
 如果觉得上述方法改起来麻烦，可以将他们合并在一个文件中。
 
-打开`./themes/next/source/css/_common/components/post/post.styl`，在最下方直接新增`CSS`代码：
+打开`./themes/next/source/css/_common/components/post/post.styl`，在最下方直接新增CSS代码：
 
 ```css
 // code样式

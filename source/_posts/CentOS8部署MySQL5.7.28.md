@@ -8,11 +8,10 @@ tags:
 
 
 
-**系统版本：CentOS Linux release 8.1.1911**
+### 系统环境
 
-**MySQL版本：5.7.28**
-
-
+> 系统版本：CentOS Linux release 8.1.1911
+> MySQL版本：5.7.28
 
 
 
@@ -34,7 +33,7 @@ $ rpm -qa|grep mariadb
 $ rpm -e --nodeps mariadb
 ```
 
-
+<!-- more -->
 
 #### 检查依赖环境
 
@@ -44,8 +43,6 @@ $ rpm -qa | grep libaio
 
 ![](/images/20200314/deps.png)
 
-
-<!-- more -->
 
 
 #### 下载rpm包
@@ -110,7 +107,7 @@ $ cat /var/log/mysqld.log
 
 此时我们可以看一下配置文件：
 
-```
+```shell
 $ cat /etc/my.cnf
 ```
 
@@ -224,21 +221,21 @@ $ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.28-linux-gli
 #### 安装MySQL
 
 ```shell
-#解压二进制包
+# 解压二进制包
 $ tar -xzvf mysql-5.7.28-linux-glibc2.12-x86_64.tar.gz
 
-#添加mysql用户
+# 添加mysql用户
 $ groupadd mysql
 $ useradd -g mysql mysql
 $ passwd mysql
 
-#修改目录权限
+# 修改目录权限
 $ mv mysql-5.7.28-linux-glibc2.12-x86_64 /usr/local/mysql
 $ cd /usr/local/mysql
 $ mkdir data
 $ chown -R mysql:mysql .
 
-#添加环境变量
+# 添加环境变量
 $ vim /etc/profile
 $ export PATH=$PATH:/usr/local/mysql/bin
 $ source /etc/profile
@@ -252,7 +249,7 @@ $ cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql
 ```shell
 $ mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
 
-#从回显中查看初始密码
+# 从回显中查看初始密码
 $ [Note] A temporary password is generated for root@localhost:
 ```
 
@@ -264,10 +261,10 @@ $ [Note] A temporary password is generated for root@localhost:
 $ service mysql start
 $ mysql -uroot -p
 
-#修改初始密码
+# 修改初始密码
 ALTER USER 'root'@'localhost' IDENTIFIED BY '新密码';
 
-#添加远程权限
+# 添加远程权限
 use mysql;
 update user set host='%' where user ='root';
 flush privileges;

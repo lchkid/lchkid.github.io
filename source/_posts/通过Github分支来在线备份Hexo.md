@@ -8,75 +8,81 @@ tags:
 
 ## 前言
 
-在[更换完Hexo的主题](/2020/03/05/Hexo更换Next主题/)后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份`Hexo`呢？下面我们就通过`git`的分支功能来备份试试。
+在[更换完Hexo的主题](/2020/03/05/Hexo更换Next主题/)后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份Hexo呢？这次我们就通过git分支功能来备份。
 
 
-<!-- more -->
+
 
 
 ## 备份步骤
 
-1. 在`hexo`目录创建本地仓库：
+### 在hexo目录创建本地仓库
 
-   ```shell
-   $ cd /hexo
-   $ git init
-   ```
+```shell
+$ cd /hexo
+$ git init
+```
 
-2. 添加远程仓库并设置别名为`origin`：
+<!-- more -->
 
-   ```shell
-   $ git remote add origin git@github.com:lchkid/lchkid.github.io.git
-   ```
+### 添加远程仓库并设置别名为origin
 
-3. 新建并切换到分支`hexo`：
+```shell
+$ git remote add origin git@github.com:lchkid/lchkid.github.io.git
+```
 
-   ```shell
-   $ git branch -b hexo
-   ```
+### 新建并切换到分支hexo
 
-4. 查看`hexo`目录下的`.gitignore`文件，若无则新建：
+```shell
+$ git branch -b hexo
+```
 
-   ```
-   .DS_Store
-   Thumbs.db
-   db.json
-   *.log
-   node_modules/
-   public/
-   .deploy*/
-   ```
+### 配置忽略文件
 
-   > 该文件会忽略目录中hexo渲染完后生成的public目录和.deploy_git也就是hexo d所push的内容。
+查看hexo目录下的`.gitignore`文件，若无则新建：
 
-5. 添加`hexo`目录到本地仓库：
+```
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+```
 
-   ```shell
-   $ git add .
-   $ git commit -m "Blog Initial"
-   ```
+> 该文件会忽略目录中hexo渲染完后生成的`public`目录和`.deploy_git`目录
 
-6. 推送到远程仓库的`hexo`分支：
+### 添加hexo目录到本地仓库
 
-   ```shell
-   $ git push -u origin hexo:hexo
-   ```
+```shell
+$ git add .
+$ git commit -m "Blog Initial"
+```
 
-   > 第一次push需要用-u关联，之后就不用-u了。
+### 推送到远程仓库的hexo分支
 
-7. 检查`lchkid.github.io`仓库是否新增了`hexo`分支并包含所有自定义文件。
+```shell
+$ git push -u origin hexo:hexo
+```
 
-   ![](/images/20200305/github分支截图.png)
-   
-8. 以后定期`push`即可：
+> 第一次push需要用-u关联，之后就不用-u了。
 
-   ```shell
-   $ hexo clean
-   $ hexo g -d
-   $ git add .
-   $ git commit -m ""
-   $ git push -u origin hexo:hexo
-   ```
+### 检查远程仓库
+
+登陆Github查看`lchkid.github.io`仓库是否新增了hexo分支并包含所有自定义文件：
+
+![](/images/20200305/github分支截图.png)
+
+以后定期push即可：
+
+```shell
+$ hexo clean
+$ hexo g -d
+$ git add .
+$ git commit -m ""
+$ git push -u origin hexo:hexo
+```
 
 
 
@@ -84,35 +90,37 @@ tags:
 
 ## 还原步骤
 
-1. 搭建`git`、`node.js`环境配置`ssh`和`git`。
+### 搭建git、node.js环境并配置SSH和git
 
-2. 安装`hexo`：
+详见[CentOS搭建Hexo并发布到GithubPages简单教程](/2020/03/05/CentOS搭建Hexo并发布到GithubPages简单教程)
 
-   ```shell
-   $ npm install -g hexo-cli
-   ```
-   
-3. 从`git`分支`clone`主目录：
+### 安装hexo
 
-   ```shell
-   $ git clone -b hexo git@github.com:lchkid/lchkid.github.io.git
-   ```
-   
-   > Tips：如果在github的setting中设置hexo为default，就可以直接git clone而不加-b参数了。
+```shell
+$ npm install -g hexo-cli
+```
 
-4. `hexo`初始化：
+### 从git分支clone主目录
 
-   ```shell
-   $ cd ./lchkid.github.io
-   $ npm install
-   $ npm install hexo-deployer-git --save
-   ```
+```shell
+$ git clone -b hexo git@github.com:lchkid/lchkid.github.io.git
+```
 
-5. `hexo`渲染、发布即可：
+> Tips：如果在github的setting中设置hexo为default，就可以直接git clone而不加-b参数了。
 
-   ```shell
-   $ hexo g -d
-   ```
+### hexo初始化
+
+```shell
+$ cd ./lchkid.github.io
+$ npm install
+$ npm install hexo-deployer-git --save
+```
+
+### hexo渲染和发布
+
+```shell
+$ hexo g -d
+```
 
 
 

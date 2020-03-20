@@ -8,42 +8,43 @@ tags:
 
 ## 前言
 
-通过之前的[简单教程](/2020/03/05/CentOS搭建Hexo并发布到GithubPages简单教程/)搭完`Hexo`之后，觉得默认的主题`landscape`太单调了，所以就找了网上大热的`Next`来用，下面记录一下如何更改`Hexo`主题为`Next`，并且更改一些个性化内容。
+通过之前的[简单教程](/2020/03/05/CentOS搭建Hexo并发布到GithubPages简单教程/)搭完Hexo之后，觉得默认的主题landscape太单调了，所以就找了网上大热的Next来用，下面记录一下如何更改Hexo主题为Next，并且更改一些个性化内容。
 
 
-<!-- more -->
+
 
 
 ## 安装主题
 
-1. 用`git clone`来快速下载主题：
+### git clone快速下载主题
 
-   ```shell
-   $ cd /hexo
-   
-   $ git clone https://github.com/theme-next/hexo-theme-next themes/next
-   ```
-   
-2. 配置`_config.yml`：
+```shell
+$ cd /hexo
+$ git clone https://github.com/theme-next/hexo-theme-next themes/next
+```
 
-   ```shell
-   $ vi ./_config.yml
-   ```
+<!-- more -->
 
-   ```yaml
-   # Extensions
-   ## Plugins: https://hexo.io/plugins/
-   ## Themes: https://hexo.io/themes/
-   theme: next
-   ```
+### 配置`_config.yml`
 
-3. 重新生成静态页面并发布：
+```shell
+$ vi ./_config.yml
+```
 
-   ```shell
-   $ hexo clean
-   $ hexo g
-   $ hexo d
-   ```
+```yaml
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: next
+```
+
+### 重新生成静态页面并发布
+
+```shell
+$ hexo clean
+$ hexo g
+$ hexo d
+```
 
 
 完成操作大概几分钟之后，再打开 https://lchkid.github.io 就已经是新的主题了，但是还是很简陋。
@@ -54,89 +55,89 @@ tags:
 
 ## 个性化主题
 
-1. 更换Scheme：
+### 更换Scheme：
 
-   > 要激活哪个配置选项就去掉行首的#，后面不再复述。
+> 要激活哪个配置选项就去掉行首的#，后面不再复述。
 
-   ```yaml
-   # Schemes
-   #scheme: Muse
-   #scheme: Mist
-   scheme: Pisces
-   #scheme: Gemini
-   ```
+```yaml
+# Schemes
+#scheme: Muse
+#scheme: Mist
+scheme: Pisces
+#scheme: Gemini
+```
 
-2. 激活导航栏菜单：
+### 激活导航栏菜单
 
-   > 标签
+> 标签
 
-   ```shell
-   $ hexo new page tags
-   $ vi /hexo/source/tags/index.md
-   ```
-   ```yaml
-   title: tags
-   date: 
-   type: "tags"
-   comments: false
-   ---
-   ```
-   > 分类
-   
-   ```shell
-   $ hexo new page categories
-   $ vi /hexo/source/categories/index.md
-   ```
-   ```yaml
-   title: categories
-   date: 
-   type: "categories"
-   comments: false
-   ---
-   ```
-   > 关于
-   
-   ```shell
-   $ hexo new page about
-   $ vi /hexo/source/about/index.md
-   ```
-   ```yaml
-   title: about
-   date: 
-   type: "about"
-   ---
-   ```
+```shell
+$ hexo new page tags
+$ vi /hexo/source/tags/index.md
+```
+```yaml
+title: tags
+date: 
+type: "tags"
+comments: false
+---
+```
+> 分类
 
-   ```yaml
-   menu:
-     home: / || home
-     categories: /categories/ || th
-     archives: /archives/ || archive
-     tags: /tags/ || tags
-     about: /about/ || user
-     #schedule: /schedule/ || calendar
-     #sitemap: /sitemap.xml || sitemap
-     #commonweal: /404/ || heartbeat
-   ```
+```shell
+$ hexo new page categories
+$ vi /hexo/source/categories/index.md
+```
+```yaml
+title: categories
+date: 
+type: "categories"
+comments: false
+---
+```
+> 关于
 
-3. 设置侧栏：
+```shell
+$ hexo new page about
+$ vi /hexo/source/about/index.md
+```
+```yaml
+title: about
+date: 
+type: "about"
+---
+```
 
-   > 只有Scheme设置为Pisces时，此处的position选项才会生效。
+```yaml
+menu:
+  home: / || home
+  categories: /categories/ || th
+  archives: /archives/ || archive
+  tags: /tags/ || tags
+  about: /about/ || user
+  #schedule: /schedule/ || calendar
+  #sitemap: /sitemap.xml || sitemap
+  #commonweal: /404/ || heartbeat
+```
 
-   ```yaml
-   sidebar:
-     position: left
-     display: post
-   ```
+### 设置侧栏
 
-4. 设置头像：
+> 只有Scheme设置为Pisces时，此处的position选项才会生效。
 
-   ```yaml
-   avatar:
-     url: /images/avatar.jpg
-     rounded: true
-     rotated: true
-   ```
+```yaml
+sidebar:
+  position: left
+  display: post
+```
+
+### 设置头像
+
+```yaml
+avatar:
+  url: /images/avatar.jpg
+  rounded: true
+  rotated: true
+```
 
 
 

@@ -9,36 +9,39 @@ tags:
 
 ## 前言
 
-前几年闲着没事在`GitHub Pages`搭了一个`Hexo`，一直没怎么用，一些记录和心得什么的都放在CSDN上了，这回趁着时间多把`Hexo`重新拾起来，就从搭建开始重新写起吧。
+前几年闲着没事在GitHub Pages搭了一个Hexo，一直没怎么用，一些记录和心得什么的都放在CSDN上了，这回趁着时间多把Hexo重新拾起来，就从搭建开始重新写起吧。
 
 
-<!-- more -->
+
 
 
 ## 搭建环境
 
-> `Hexo`是一个快速、简洁且高效的博客框架。`Hexo`使用`Markdown`（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
+> Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
 
-首先要找一个环境来搭`Hexo`，可以用本机、虚拟机或者云主机，我这次用的是AWS，所以以下的操作都是基于Linux的。我们都知道`Hexo`是基于`node.js`的，而且要在`GitHub Pages`上发布就肯定少不了`git`，所以准备工作就很明显了：
+首先要找一个环境来搭Hexo，可以用本机、虚拟机或者云主机，我这次用的是AWS，所以以下的操作都是基于Linux的。我们都知道Hexo是基于node.js的，而且要在GitHub Pages上发布就肯定少不了git，所以准备工作就很明显了。
 
-1. 安装`git`：
+<!-- more -->
 
-   ```shell
-   $ yum install -y git-core
-   ```
 
-2. 安装`node.js：`
+### 安装git
 
-   ```shell
-   $ curl -sL https://rpm.nodesource.com/setup_13.x | bash -
-   $ yum install -y nodejs
-   ```
-   
-3. 检查一下装成功没有：
+```shell
+$ yum install -y git-core
+```
 
-   ```shell
-   $ git --version && node -v
-   ```
+### 安装node.js
+
+```shell
+$ curl -sL https://rpm.nodesource.com/setup_13.x | bash -
+$ yum install -y nodejs
+```
+
+### 检查是否安装成功
+
+```shell
+$ git --version && node -v
+```
 
 这样我们的准备工作就完成了。
 
@@ -46,103 +49,115 @@ tags:
 
 
 
-## 配置`git`
+## 配置git
 
-1. 配置`git`全局信息：
+### 配置git全局信息
 
-   ```shell
-   $ git config --global user.name "GitHub用户名"
-   $ git config --global user.email "GitHub邮箱地址"
-   ```
+```shell
+$ git config --global user.name "GitHub用户名"
+$ git config --global user.email "GitHub邮箱地址"
+```
 
-2.  创建`ssh`秘钥：
+### 创建SSH秘钥
 
-   ```shell
-   $ mkdir ~/.ssh
-   $ ssh-keygen -t rsa -C "GitHub邮箱地址"
-   $ cat ~/.ssh/id_rsa.pub
-   ```
-   
-3. 上传秘钥：
+```shell
+$ mkdir ~/.ssh
+$ ssh-keygen -t rsa -C "GitHub邮箱地址"
+$ cat ~/.ssh/id_rsa.pub
+```
 
-   将获取到的秘钥配置到`GitHub`网站，测试一下连接是否成功，这样`git`环境就配置完成了。
+### 上传秘钥
 
-   ```shell
-   $ ssh -T git@GitHub.com
-   ```
+将获取到的秘钥配置到GitHub网站，测试一下连接是否成功，这样git环境就配置完成了。
 
-
-
-
-
-## 安装`Hexo`
-
-1. 安装`hexo`包和`hexo-deployer-git`扩展：
-
-   ```shell
-   $ npm install -g hexo-cli
-   $ npm install hexo-deployer-git --save
-   ```
-   
-2. 初始化`hexo`（最开始创建容器的时候已经预设的数据卷）：
-
-   ```shell
-   $ hexo init <folder>
-   ```
-
-3. 进入容器中的`hexo`目录：
-
-   ```shell
-   $ cd /hexo
-   $ npm install
-   ```
+```shell
+$ ssh -T git@GitHub.com
+```
 
 
 
 
 
-## 配置`Hexo`
+## 安装Hexo
 
-1. 简单配置一下网站信息：
 
-   ```shell
-   $ vi ./_config.yml
-   ```
 
-   ```yml
-   # Site
-   title: 网站标题
-   subtitle: '网站副标题'
-   description: '描述'
-   keywords: 关键字
-      author: 作者
-   language: 语言
-   timezone: '时区'
+### 安装hexo包和`hexo-deployer-git`扩展
 
-   deploy:
-   type: 'git'
-   repo: GitHub仓库地址
-   branch: master
-   ```
+```shell
+$ npm install -g hexo-cli
+$ npm install hexo-deployer-git --save
+```
 
-2. 生成静态页面：
 
-   ```shell
-   $ hexo generate  //Hexo g
-   ```
 
-3. 本地预览：
+### 初始化hexo
 
-   ```shell
-   $ Hexo server  //hexo s
-   ```
+```shell
+$ hexo init <folder>
+```
 
-   如果你使用的是远程`vps`，可以克隆一个会话使用`elinks`预览：
 
-   ```shell
-   $ yum install -y elinks
-   $ elinks --dump http://localhost:4000
-   ```
+
+### 进入hexo目录
+
+```shell
+$ cd /hexo
+$ npm install
+```
+
+
+
+
+
+## 配置Hexo
+
+
+
+### 简单配置一下网站信息：
+
+```shell
+$ vi ./_config.yml
+```
+
+```yaml
+# Site
+title: 网站标题
+subtitle: '网站副标题'
+description: '描述'
+keywords: 关键字
+   author: 作者
+language: 语言
+timezone: '时区'
+
+deploy:
+type: 'git'
+repo: GitHub仓库地址
+branch: master
+```
+
+
+
+### 生成静态页面：
+
+```shell
+$ hexo generate  //Hexo g
+```
+
+
+
+### 本地预览：
+
+```shell
+$ Hexo server  //hexo s
+```
+
+如果你使用的是远程vps，可以克隆一个会话使用elinks预览：
+
+```shell
+$ yum install -y elinks
+$ elinks --dump http://localhost:4000
+```
 
 
 
@@ -150,15 +165,15 @@ tags:
 
 ## 发布到GitHub Pages
 
-通过以上步骤，`Hexo`本地环境已经搭建完毕，接下来要做的就是把本地环境部署到`GitHub`上去：
+通过以上步骤，Hexo本地环境已经搭建完毕，接下来要做的就是把本地环境部署到GitHub上去：
 
 ```shell
 $ hexo deploy  //hexo d
 ```
 
-几分钟后就可以通过 `https://[github_username].github.io` 来访问博客了。
+几分钟后就可以通过 https://lchkid.github.io 来访问博客了。
 
-至此，我们通过`GitHub`创建了一个`Hexo`博客，后续可以再把`Hexo`美化一下。
+至此，我们通过GitHub创建了一个Hexo博客，后续可以再把Hexo美化一下。
 
 
 
@@ -168,7 +183,7 @@ $ hexo deploy  //hexo d
 
 以下是很早前遇到过的一些小问题，也搬运过来在此简单记录：
 
-> `npm`问题，切换为`taobaonpm`即可，具体见 http://cnodejs.org/topic/4f9904f9407edba21468f31e
+> npm问题，切换为taobaonpm即可，具体见 http://cnodejs.org/topic/4f9904f9407edba21468f31e
 
 
 
