@@ -1,4 +1,6 @@
 ---
+title: CentOS8通过Docker配置ASF实现Steam云挂卡
+date: 2020/03/06 13:39:56
 categories:
 - 运维相关
 tags:

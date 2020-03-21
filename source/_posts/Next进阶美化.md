@@ -1,4 +1,6 @@
 ---
+title: Next进阶美化
+date: 2020/03/06 19:52:45
 categories:
 - 博客相关
 tags:
@@ -12,17 +14,13 @@ tags:
 
 之前换了Next主题后又改了一些[简单的设置](/2020/03/05/Hexo更换Next主题/)，不过对有一些样式还是不满意，但是官方的`_config.yml`文件并没有提供这些选项，只能通过修改CSS的方式来改了。先是去网上搜了一些教程，因为版本原因很多教程都失效了，还得靠自己摸索。
 
-> 不同版本文件路径或者具体属性都不完全一样，本文基于[NexT 7.7.2](https://pisces.theme-next.org/next-7-7-2-released/)，食用本文需要一点点点CSS基础:D。
+>不同版本文件路径或者具体属性都不完全一样，本文基于[NexT 7.7.2](https://pisces.theme-next.org/next-7-7-2-released/)，食用本文需要一点点点CSS基础:D。
 
 
 
 
 
 ## Next进阶美化
-
-
-
-
 
 ### 添加背景图片
 
@@ -159,7 +157,7 @@ border: none;
 
 如果觉得上述方法改起来麻烦，可以将他们合并在一个文件中。
 
-打开`./themes/next/source/css/_common/components/post/post.styl`，在最下方直接新增CSS代码：
+打开`./themes/next/source/css/_common/components/post/post.styl`，在最下方新增以下代码：
 
 ```css
 // code样式
@@ -225,15 +223,230 @@ code {
 
 
 
+------
+
+> 2020-03-21更新
+
+### 修改侧边栏和正文圆角
+
+打开`./themes/next/source/css/_schemes/Pisces/_layout.styl`，找到`.header-inner`，修改以下代码：
+
+```css
+border-radius: 0 0 6px 6px;
+```
+
+找到`.content-wrap`，修改以下代码：
+
+```css
+border-radius: 6px;
+```
+
+打开`./themes/next/source/css/_schemes/Pisces/_sidebar.styl` ，找到`.sidebar`，修改以下代码：
+
+```css
+border-radius: 6px;
+```
+
+打开`./themes/next/source/css/_common/components/back-to-top-sidebar.styl`，找到`&.back-to-top-on`，插入以下代码：
+
+```css
+border-radius: 6px;
+```
+
+找到`&:hover`，插入以下代码：
+
+```css
+border-radius: 6px;
+color: #ff6060;
+```
 
 
-## 参考资料
->http://blackchy.com/2019/09/30/2019-09-30-Hexo-Next-Link-Color/
->[http://watchmen.xin/2018/06/23/个人知识体系/个人博客/Hexo/修改主题超链接样式/](http://watchmen.xin/2018/06/23/个人知识体系/个人博客/Hexo/修改主题超链接样式/)
+
+### 修改侧边栏链接样式
+
+打开`./themes/next/source/css/_common/outline/header/menu.styl`，找到`.menu-item-active a`，插入以下代码：
+
+```css
+color: #ff6060;
+```
+
+打开`./themes/next/source/css/_schemes/Pisces/_menu.styl`，找到`.menu-item-active a::after`，修改以下代码：
+
+```css
+background: #ff6060;
+```
 
 
 
+### 添加博客标题动画
+
+打开`./themes/next/source/css/_common/outline/header/site-meta.styl`，找到`.site-title`，在前面插入以下代码：
+
+```css
+@-webkit-keyframes shake{
+	0% {
+		-webkit-transform:translateX(9px) rotate(9deg);
+    }
+    20% {
+        -webkit-transform:translateX(-7px) rotate(-7deg);
+    }
+    40% {
+        -webkit-transform:translateX(5px) rotate(5deg);
+    }
+    60% {
+        -webkit-transform:translateX(-3px) rotate(-3deg);
+    }
+    80% {
+        -webkit-transform:translateX(1px) rotate(1deg);
+    }
+    100% {
+        -webkit-transform:translateX(0) rotate(0);
+    }
+}
+```
+
+在`.site-title`插入以下代码：
+
+```css
+transition: color 0.5s ease-in-out;
+
+&:hover {
+  animation: shake 0.5s ease-in-out 1;
+  color: #ff6060;
+}
+```
+
+可以实现鼠标移到标题后左右晃动并变色效果。
 
 
+
+### 修改右上角github标签
+
+打开`./themes/next/source/css/_common/outline/header/github-banner.styl`，找到`svg`，修改以下代码：
+
+```css
+color: #ff6060;
+fill: transparent;
+position: fixed;
+```
+
+有兴趣的也可以去 https://github.com/blog/273-github-ribbons 找别的SVG来替换。
+
+
+
+### 修改全局超链接文字颜色
+
+打开`./themes/next/source/css/_common/scaffolding/base.styl`，找到`a, span.exturl`下的`&:hover`，修改以下代码：
+
+```css
+border-bottom-color: #ff6060;
+color: #ff6060;
+```
+
+
+
+### 修改正文样式
+
+打开`./themes/next/source/css/_schemes/Pisces/_layout.styl`，找到`.content-wrap`，修改以下代码：
+
+```css
+// background: var(--content-bg-color);
+padding: 0 $content-desktop-padding;
+```
+
+打开`./themes/next/source/css/_common/components/post/post-expend.styl`，找到`.posts-expand`，修改以下代码：
+
+```css
+// padding-top: 40px;
+```
+
+打开`./themes/next/source/css/_common/components/post/post-eof.styl`，注释以下代码：
+
+```css
+/*.post-eof {
+  background: $grey-light;
+  height: 1px;
+  margin: $post-eof-margin-top auto $post-eof-margin-bottom;
+  text-align: center;
+  width: 8%;
+
+  .post-block:last-child & {
+    display: none;
+  }
+}*/
+```
+
+打开`./themes/next/source/css/_common/components/post/post.styl`，在最下方新增以下代码：
+
+```css
+// 正文和评论样式
+.post-block {
+  background: var(--content-bg-color);
+  padding: 40px;
+  margin-bottom: 13px;
+  border-radius: 5px;
+}
+```
+
+打开`./themes/next/source/css/_common/scaffolding/comments.styl`，找到`.comments`，插入以下代码：
+
+```css
+margin: 60px 0 20px 0;
+background: var(--content-bg-color);
+padding: 40px;
+border-radius: 5px;
+```
+
+
+
+### 修改正文标题下方线条动画
+
+打开`./themes/next/source/css/_common/components/post/post-header.styl`，找到`.posts-expand .post-title-link`增加以下代码：
+
+```css
+&:hover {
+  color: #ff6060;
+}
+```
+
+找到`&::before`，修改以下代码：
+
+```css
+background: #ff6060;
+```
+
+
+
+### 修改归档页面超链接样式
+
+打开`./themes/next/source/css/_common/components/post/post-collapse.styl`，找到`.post-header`，插入以下代码：
+
+```css
+&:hover span {
+  color: #ff6060;
+}
+```
+
+
+
+### 修改标签列表颜色
+
+打开主题配置文件`_config.yml`，找到`tagcloud`，修改以下内容：
+
+```yaml
+tagcloud:
+  # All values below are same as default, change them by yourself.
+  min: 12 # Minimun font size in px
+  max: 30 # Maxium font size in px
+  start: "#EE7AE9" # Start color (hex, rgba, hsla or color keywords)
+  end: "#FFD700" # End color (hex, rgba, hsla or color keywords)
+  amount: 200 # Amount of tags, change it if you have more than 200 tags
+```
+
+
+
+### TO DO LIST
+
+- [ ] 增加下拉浮动导航栏
 
 

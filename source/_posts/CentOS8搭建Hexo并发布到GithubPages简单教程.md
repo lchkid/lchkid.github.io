@@ -1,4 +1,6 @@
 ---
+title: CentOS8搭建Hexo并发布到GithubPages简单教程
+date: 2020/03/05 16:06:53
 categories:
 - 博客相关
 tags:

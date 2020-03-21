@@ -1,4 +1,6 @@
 ---
+title: CentOS8基于MySQL8.0.17和Nginx部署Zabbix4.4
+date: 2020/03/20 16:39:57
 categories:
 - 运维相关
 tags:
@@ -21,7 +23,7 @@ tags:
 
 #### 安装MySQL
 
-Zabbix支持多种数据库来存放采集到的数据，常用的如：MySQL、PostgreSQL、Oracle、IBM DB2、SQLite等，低版本可以参考[上次部署](/2020/03/14/CentOS8%E9%83%A8%E7%BD%B2MySQL5.7.28/)好的MySQL `5.7.28`，这次准备装MySQL `8.0.17`
+Zabbix支持多种数据库来存放采集到的数据，常用的如：MySQL、PostgreSQL、Oracle、IBM DB2、SQLite等，低版本可以参考[上次部署](/2020/03/14/CentOS8部署MySQL5.7.28/)好的MySQL `5.7.28`，这次准备装MySQL `8.0.17`
 
 <!-- more -->
 

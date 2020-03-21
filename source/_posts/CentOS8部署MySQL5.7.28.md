@@ -1,4 +1,6 @@
 ---
+title: CentOS8部署MySQL5.7.28
+date: 2020/03/14 12:46:08
 categories:
 - 运维相关
 tags:

@@ -1,4 +1,6 @@
 ---
+title: Hexo更换Next主题
+date: 2020/03/05 18:07:07
 categories:
 - 博客相关
 tags:
@@ -8,7 +10,7 @@ tags:
 
 ## 前言
 
-通过之前的[简单教程](/2020/03/05/CentOS搭建Hexo并发布到GithubPages简单教程/)搭完Hexo之后，觉得默认的主题landscape太单调了，所以就找了网上大热的Next来用，下面记录一下如何更改Hexo主题为Next，并且更改一些个性化内容。
+通过之前的[简单教程](/2020/03/05/CentOS8搭建Hexo并发布到GithubPages简单教程/)搭完Hexo之后，觉得默认的主题landscape太单调了，所以就找了网上大热的Next来用，下面记录一下如何更改Hexo主题为Next，并且更改一些个性化内容。
 
 
 
