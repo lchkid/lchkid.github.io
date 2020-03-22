@@ -5,7 +5,7 @@
 # Site
 title: Kiddo's Site
 subtitle: 'After all lch is just a kid!'
-description: ''
+description: 'lchkid blog'
 keywords:
 author: lchkid
 language: zh-CN
@@ -99,5 +99,6 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: 'git'
-  repo: git@github.com:lchkid/lchkid.github.io.git
-  branch: master
+  repo: 
+    github: git@github.com:lchkid/lchkid.github.io.git,master
+    coding: git@e.coding.net:lchkid/lchkid.coding.me.git,master
