@@ -43,6 +43,10 @@ $ yum install -y docker-ce docker-ce-cli containerd.io
 $ systemctl start docker
 ```
 
+
+<!-- more -->
+
+
 ### 下载ASF官方镜像
 
 ```shell
@@ -51,7 +55,7 @@ $ docker pull justarchi/archisteamfarm
 
 > 可以根据实际情况选择镜像，不过ASF最新版支持自动更新，不用重新创建容器，建议latest。
 
-<!-- more -->
+
 
 
 ## 配置ASF

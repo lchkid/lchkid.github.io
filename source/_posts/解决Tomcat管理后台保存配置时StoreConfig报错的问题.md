@@ -9,14 +9,20 @@ tags:
 
 
 
+### 系统环境
+
+
+>Apache Tomcat/8.5.51
+
+
+
 最近在测试（玩）Tomcat的管理后台，不过实际好像很少有用这个改配置的。只要用的少，遇到的问题就肯定多，这不刚开始在通过Tomcat的Host Manager添加虚拟主机（Virtual Host）的时候就遇到问题了。
-
-<!-- more -->
-
 
 首先设置好Name和App base后点击Add添加VH：
 
 ![](/images/20200310/tomcat-host-manager-add.png)
+
+<!-- more -->
 
 看到提示信息：
 

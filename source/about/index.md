@@ -6,11 +6,7 @@ type: "about"
 
 
 
-### INFO:
 
-###### Name: 小浩
 
-###### Work: Operations Engineer
-
-###### From: Hangzhou, Zhejiang
+ 默默无闻的小透明
 

@@ -55,7 +55,12 @@
   {%- if theme.pjax %}
     </div>
   {%- endif %}
+  <!-- Aplayer -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <div id="aplayer"></div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+  <meting-js fixed=true loop="all" order="list" volume="0.5" server="netease" type="playlist"	id="4928478162"></meting-js>
+  <script src="/js/fireworks.min.js"></script> 
 </body>
-<!-- click love -->
-<script src="/js/clickLove.js"></script>
 </html>

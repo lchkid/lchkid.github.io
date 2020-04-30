@@ -10,9 +10,7 @@ tags:
 
 ## 前言
 
-在[更换完Hexo的主题](/2020/03/05/Hexo更换Next主题/)后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份Hexo呢？这次我们就通过git分支功能来备份。
-
-
+在[更换完Hexo的主题](/2020/Hexo更换Next主题/)后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份Hexo呢？这次我们就通过git分支功能来备份。
 
 
 
@@ -132,3 +130,4 @@ $ hexo g -d
 
 >https://www.zhihu.com/question/21193762/answer/489124966
 >https://quareia.github.io/blog/6efb1d64/
+>https://stackoverflow.com/questions/15681643/how-to-clone-git-repository-from-its-zip
