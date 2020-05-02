@@ -2,16 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://lchkid.top/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/</loc>
+    <loc>https://lchkid.top/2020/Next%E8%BF%9B%E9%98%B6%E7%BE%8E%E5%8C%96/</loc>
     
-    <lastmod>2020-04-30T12:00:33.660Z</lastmod>
+    <lastmod>2020-05-02T04:29:07.144Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lchkid.top/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/</loc>
+    
+    <lastmod>2020-05-02T04:13:52.918Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://lchkid.top/2020/CentOS8%E5%9F%BA%E4%BA%8EMySQL8.0.17%E5%92%8CNginx%E9%83%A8%E7%BD%B2Zabbix4.4/</loc>
     
-    <lastmod>2020-04-30T12:00:14.485Z</lastmod>
+    <lastmod>2020-05-02T04:12:01.049Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lchkid.top/2020/CentOS8%E9%83%A8%E7%BD%B2MySQL5.7.28/</loc>
+    
+    <lastmod>2020-05-02T04:11:09.030Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lchkid.top/2020/%E8%A7%A3%E5%86%B3Tomcat%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E4%BF%9D%E5%AD%98%E9%85%8D%E7%BD%AE%E6%97%B6StoreConfig%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2020-05-02T04:09:56.233Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lchkid.top/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/</loc>
+    
+    <lastmod>2020-05-02T04:07:47.063Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lchkid.top/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/</loc>
+    
+    <lastmod>2020-05-02T04:06:04.664Z</lastmod>
     
   </url>
   
@@ -19,13 +54,6 @@
     <loc>https://lchkid.top/2020/Hexo%E6%9B%B4%E6%8D%A2Next%E4%B8%BB%E9%A2%98/</loc>
     
     <lastmod>2020-04-30T11:59:46.829Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lchkid.top/2020/Next%E8%BF%9B%E9%98%B6%E7%BE%8E%E5%8C%96/</loc>
-    
-    <lastmod>2020-04-30T11:59:32.426Z</lastmod>
     
   </url>
   
@@ -44,28 +72,7 @@
   </url>
   
   <url>
-    <loc>https://lchkid.top/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/</loc>
-    
-    <lastmod>2020-04-01T11:10:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lchkid.top/2020/CentOS8%E9%83%A8%E7%BD%B2MySQL5.7.28/</loc>
-    
-    <lastmod>2020-04-01T11:10:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lchkid.top/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/</loc>
-    
-    <lastmod>2020-04-01T11:10:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lchkid.top/2020/%E8%A7%A3%E5%86%B3Tomcat%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E4%BF%9D%E5%AD%98%E9%85%8D%E7%BD%AE%E6%97%B6StoreConfig%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://lchkid.top/tags/index.html</loc>
     
     <lastmod>2020-04-01T11:10:50.000Z</lastmod>
     
@@ -73,13 +80,6 @@
   
   <url>
     <loc>https://lchkid.top/categories/index.html</loc>
-    
-    <lastmod>2020-04-01T11:10:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lchkid.top/tags/index.html</loc>
     
     <lastmod>2020-04-01T11:10:50.000Z</lastmod>
     
