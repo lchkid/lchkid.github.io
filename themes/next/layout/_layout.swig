@@ -61,6 +61,6 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
   <meting-js fixed=true loop="all" order="list" volume="0.5" server="netease" type="playlist"	id="4928478162"></meting-js>
-  <script src="/js/fireworks.min.js"></script> 
+  <script src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/js/fireworks.min.js"></script> 
 </body>
 </html>

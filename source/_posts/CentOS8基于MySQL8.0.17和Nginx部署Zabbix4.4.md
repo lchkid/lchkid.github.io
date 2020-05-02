@@ -45,7 +45,7 @@ $ mysql --version
 
 当前MySQL版本是`8.0.17`
 
-![](/images/20200320/mysql1.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/mysql1.png)
 
 ###### 启动MySQL
 
@@ -56,7 +56,7 @@ $ systemctl enable mysqld
 $ systemctl status mysqld
 ```
 
-![](/images/20200320/mysql2.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/mysql2.png)
 
 ###### 配置MySQL
 
@@ -79,7 +79,7 @@ Reload privilege tables now? Y
 $ mysql -uroot -p
 ```
 
-![](/images/20200320/mysql3.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/mysql3.png)
 
 ```mysql
 # 添加root远程权限
@@ -126,7 +126,7 @@ $ nginx -v
 
 当前Nginx stable版本是`1.16.1`
 
-![](/images/20200320/nginx1.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/nginx1.png)
 
 ##### 通过二进制包安装
 
@@ -229,7 +229,7 @@ $ zcat /usr/share/doc/zabbix-server-mysql/create.sql.gz | mysql -uzabbix -p zabb
 
 这就是导入后的zabbix库
 
-![](/images/20200320/zabbix1.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix1.png)
 
 ##### 连接Zabbix server与MySQL
 
@@ -293,11 +293,11 @@ $ systemctl enable --now zabbix-server zabbix-agent
 
 这里可能会遇到启动失败的问题
 
-![](/images/20200320/zabbix2.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix2.png)
 
 按提示查看失败原因，可以看到是SELinux的锅
 
-![](/images/20200320/zabbix3.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix3.png)
 
 直接关掉再启动zabbix-server
 
@@ -307,7 +307,7 @@ $ systemctl start zabbix-server
 $ systemctl status zabbix-server
 ```
 
-![](/images/20200320/zabbix4.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix4.png)
 
 配置一下SELinux
 
@@ -324,13 +324,13 @@ $ netstat -tnlp
 
 
 
-![](/images/20200320/zabbix5.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix5.png)
 
 
 
 全部启动完毕后就可以在浏览器打开 http://localhost:9000/ 浏览Zabbix安装页面了
 
-![](/images/20200320/zabbix6.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix6.png)
 
 
 
@@ -348,7 +348,7 @@ $ netstat -tnlp
 
 如果你的数据库不是在本机，记得填入数据库所在的IP地址
 
-![](/images/20200320/zabbix7.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix7.png)
 
 
 
@@ -360,7 +360,7 @@ $ netstat -tnlp
 
 最后会在`/etc/zabbix/web/`下生成一个`zabbix.conf.php`文件来保存刚刚配置好的所有信息
 
-![](/images/20200320/zabbix8.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0320/zabbix8.png)
 
 
 

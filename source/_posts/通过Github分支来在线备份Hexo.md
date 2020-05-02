@@ -72,7 +72,7 @@ $ git push -u origin hexo:hexo
 
 登陆Github查看`lchkid.github.io`仓库是否新增了hexo分支并包含所有自定义文件：
 
-![](/images/20200305/github分支截图.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0305/github%E5%88%86%E6%94%AF%E6%88%AA%E5%9B%BE.png)
 
 以后定期push即可：
 

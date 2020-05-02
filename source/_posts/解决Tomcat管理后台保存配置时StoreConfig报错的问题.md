@@ -20,7 +20,7 @@ tags:
 
 首先设置好Name和App base后点击Add添加VH：
 
-![](/images/20200310/tomcat-host-manager-add.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0310/tomcat-host-manager-add.png)
 
 <!-- more -->
 
@@ -30,11 +30,11 @@ tags:
 OK - Host [test.tomcat.org] added
 ```
 
-![](/images/20200310/tomcat-host-manager-added.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0310/tomcat-host-manager-added.png)
 
 测试一下是否成功，由于提前修改了`/webapps2/ROOT/index.jsp`（Home-Test），所以可以明显看到访问该Host跳转到了`webapps2`目录下：
 
-![](/images/20200310/tomcat-host-manager-started.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0310/tomcat-host-manager-started.png)
 
 然后点击Persist configuration下的All，想将当前VH配置保存到`/conf/server.xml`中
 

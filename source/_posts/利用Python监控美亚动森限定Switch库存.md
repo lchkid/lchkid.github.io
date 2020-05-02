@@ -149,7 +149,7 @@ else:
 
 最终效果：
 
-![](/images/20200329/monitor.png)
+![](https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0329/monitor.png)
 
 
 
