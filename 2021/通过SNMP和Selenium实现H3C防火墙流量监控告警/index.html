@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"lchkid.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言公司的防火墙是H3C的，WEB端通过接口可以查询到当前总带宽以及用户流量排行，但是想接入监控中就比较棘手，因为接口不能复用，而SNMP也只能查到接口流量信息，无法获取IP流量详情，所以准备通过SNMP监控总带宽，达到阈值后再用Selenium爬取WEB管理后台的用户流量排行数据，通过webhook传递给机器人进行告警。">
+  <meta name="description" content="前言公司的防火墙是H3C的，WEB端通过接口可以查询到当前总带宽以及用户流量排行，但是想接入监控中就比较棘手，因为接口不能复用，而SNMP也只能查到接口流量信息，无法获取IP流量详情，所以准备通过SNMP监控总带宽，达到阈值后再用Selenium爬取WEB管理后台的用户流量排行数据，通过webhook传递给机器人进行告警。 准备工作系统环境 系统版本：CentOS Linux release 7.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过SNMP及Selenium实现H3C防火墙流量监控告警">
-<meta property="og:url" content="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/index.html">
+<meta property="og:title" content="通过SNMP和Selenium实现H3C防火墙流量监控告警">
+<meta property="og:url" content="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/index.html">
 <meta property="og:site_name" content="Kiddo&#39;s Blog">
-<meta property="og:description" content="前言公司的防火墙是H3C的，WEB端通过接口可以查询到当前总带宽以及用户流量排行，但是想接入监控中就比较棘手，因为接口不能复用，而SNMP也只能查到接口流量信息，无法获取IP流量详情，所以准备通过SNMP监控总带宽，达到阈值后再用Selenium爬取WEB管理后台的用户流量排行数据，通过webhook传递给机器人进行告警。">
+<meta property="og:description" content="前言公司的防火墙是H3C的，WEB端通过接口可以查询到当前总带宽以及用户流量排行，但是想接入监控中就比较棘手，因为接口不能复用，而SNMP也只能查到接口流量信息，无法获取IP流量详情，所以准备通过SNMP监控总带宽，达到阈值后再用Selenium爬取WEB管理后台的用户流量排行数据，通过webhook传递给机器人进行告警。 准备工作系统环境 系统版本：CentOS Linux release 7.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2021/0709/env1.png">
 <meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2021/0709/python1.png">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2021/0709/chromedriver.png">
 <meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2021/0709/snmp1.png">
 <meta property="article:published_time" content="2021-07-09T03:46:57.000Z">
-<meta property="article:modified_time" content="2021-07-09T08:41:42.047Z">
+<meta property="article:modified_time" content="2021-07-22T07:27:03.598Z">
 <meta property="article:author" content="lchkid">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Python">
@@ -47,7 +47,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2021/0709/env1.png">
 
-<link rel="canonical" href="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">
+<link rel="canonical" href="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">
 
 
 <script id="page-configurations">
@@ -59,7 +59,7 @@
   };
 </script>
 
-  <title>通过SNMP及Selenium实现H3C防火墙流量监控告警 | Kiddo's Blog</title>
+  <title>通过SNMP和Selenium实现H3C防火墙流量监控告警 | Kiddo's Blog</title>
   
 
 
@@ -177,7 +177,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">
+    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/avatar.jpg">
@@ -190,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          通过SNMP及Selenium实现H3C防火墙流量监控告警
+          通过SNMP和Selenium实现H3C防火墙流量监控告警
         </h1>
 
         <div class="post-meta">
@@ -199,10 +199,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-07-09 11:46:57 / 修改时间：16:41:42" itemprop="dateCreated datePublished" datetime="2021-07-09T11:46:57+08:00">2021-07-09</time>
+              <time title="创建时间：2021-07-09 11:46:57" itemprop="dateCreated datePublished" datetime="2021-07-09T11:46:57+08:00">2021-07-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-22 15:27:03" itemprop="dateModified" datetime="2021-07-22T15:27:03+08:00">2021-07-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -214,7 +220,7 @@
             </span>
 
           
-            <span id="/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" class="post-meta-item leancloud_visitors" data-flag-title="通过SNMP及Selenium实现H3C防火墙流量监控告警" title="阅读次数">
+            <span id="/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" class="post-meta-item leancloud_visitors" data-flag-title="通过SNMP和Selenium实现H3C防火墙流量监控告警" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -229,8 +235,8 @@
       </span>
       <span class="post-meta-item-text">评论次数：</span>
     
-    <a title="valine" href="/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,15 +252,15 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>公司的防火墙是H3C的，WEB端通过接口可以查询到当前总带宽以及用户流量排行，但是想接入监控中就比较棘手，因为接口不能复用，而SNMP也只能查到接口流量信息，无法获取IP流量详情，所以准备通过SNMP监控总带宽，达到阈值后再用<code>Selenium</code>爬取WEB管理后台的用户流量排行数据，通过<code>webhook</code>传递给机器人进行告警。</p>
-<a id="more"></a>
-
-
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h4 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h4><blockquote>
 <p>系统版本：CentOS Linux release 7.9.2009<br>Python版本：3.9.6</p>
 </blockquote>
+<a id="more"></a>
+
+
 <h4 id="安装Python"><a href="#安装Python" class="headerlink" title="安装Python"></a>安装Python</h4><p><code>CentOS 7.9</code>自带的是<code>Python 2.7.5</code>，所以我们还需要自行下载安装<code>Python 3</code>，由于是<code>Minimal Install</code>的新系统，需要提前安装一下<code>gcc</code>等依赖环境。</p>
 <p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2021/0709/env1.png" alt=""></p>
-<h5 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yum install -y gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel</span></span><br></pre></td></tr></table></figure>
+<h5 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget vim</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更换阿里云源</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line">yum clean all &amp;&amp; yum makecache</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装依赖</span></span><br><span class="line">yum install -y yum install -y gcc zlib zlib-devel bzip2-devel openssl-devel openldap-devel ncurses-libs ncurses-devel sqlite-devel readline-devel kernel-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel libdbi-devel libxslt-devel python-devel git</span><br></pre></td></tr></table></figure>
 
 <h5 id="编译安装Python"><a href="#编译安装Python" class="headerlink" title="编译安装Python"></a>编译安装Python</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir -p /usr/<span class="built_in">local</span>/python3.9</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/python3.9</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar -zxvf Python-3.9.6.tgz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Python-3.9.6</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./configure --prefix=/usr/<span class="built_in">local</span>/python3.9</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make &amp;&amp; make install</span></span><br></pre></td></tr></table></figure>
 
@@ -323,7 +329,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%8F%8ASelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" title="通过SNMP及Selenium实现H3C防火墙流量监控告警">https://lchkid.top/2021/通过SNMP及Selenium实现H3C防火墙流量监控告警/</a>
+    <a href="https://lchkid.top/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" title="通过SNMP和Selenium实现H3C防火墙流量监控告警">https://lchkid.top/2021/通过SNMP和Selenium实现H3C防火墙流量监控告警/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -346,8 +352,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/L2TP%E5%8D%8F%E8%AE%AEVPN%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86/" rel="prev" title="L2TP/IPsec协议VPN连接故障处理">
-      <i class="fa fa-chevron-left"></i> L2TP/IPsec协议VPN连接故障处理
+    <a href="/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" rel="prev" title="解决Windows系统L2TP协议的VPN连接报错问题">
+      <i class="fa fa-chevron-left"></i> 解决Windows系统L2TP协议的VPN连接报错问题
     </a></div>
       <div class="post-nav-item"></div>
     </div>

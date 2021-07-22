@@ -22,23 +22,24 @@
     var CONFIG = {"hostname":"lchkid.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言在更换完Hexo的主题后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份Hexo呢？这次我们就通过git分支功能来备份。 备份步骤在hexo目录创建本地仓库12$ cd &#x2F;hexo$ git init">
+  <meta name="description" content="前言假期Steam喜+1多了之后又没那么多时间玩，所以想着拿ArchiSteamFarm（以下简称ASF）来挂下卡，去官方文档一看，v3.0.3.2版本之后ASF已经有官方镜像了，以前还需要用Screen来后台挂卡，这回直接上Docker。 准备工作安装并启动Docker步骤很简单，先卸载老版本，然后添加yum源，最后安装docker-ce（社区版本）就好了。 123456789101112131">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过Github分支来在线备份Hexo">
-<meta property="og:url" content="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/index.html">
+<meta property="og:title" content="基于CentOS8通过Docker配置ASF实现Steam云挂卡">
+<meta property="og:url" content="https://lchkid.top/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/index.html">
 <meta property="og:site_name" content="Kiddo&#39;s Blog">
-<meta property="og:description" content="前言在更换完Hexo的主题后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份Hexo呢？这次我们就通过git分支功能来备份。 备份步骤在hexo目录创建本地仓库12$ cd &#x2F;hexo$ git init">
+<meta property="og:description" content="前言假期Steam喜+1多了之后又没那么多时间玩，所以想着拿ArchiSteamFarm（以下简称ASF）来挂下卡，去官方文档一看，v3.0.3.2版本之后ASF已经有官方镜像了，以前还需要用Screen来后台挂卡，这回直接上Docker。 准备工作安装并启动Docker步骤很简单，先卸载老版本，然后添加yum源，最后安装docker-ce（社区版本）就好了。 123456789101112131">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0305/github%E5%88%86%E6%94%AF%E6%88%AA%E5%9B%BE.png">
-<meta property="article:published_time" content="2020-03-05T14:20:16.000Z">
-<meta property="article:modified_time" content="2020-05-14T03:32:58.242Z">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0306/Docker%E9%85%8D%E7%BD%AEASF%E6%8F%90%E7%A4%BA.png">
+<meta property="article:published_time" content="2020-03-06T05:39:56.000Z">
+<meta property="article:modified_time" content="2021-07-22T07:27:02.906Z">
 <meta property="article:author" content="lchkid">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="GitHub">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Steam">
+<meta property="article:tag" content="ASF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0305/github%E5%88%86%E6%94%AF%E6%88%AA%E5%9B%BE.png">
+<meta name="twitter:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0306/Docker%E9%85%8D%E7%BD%AEASF%E6%8F%90%E7%A4%BA.png">
 
-<link rel="canonical" href="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/">
+<link rel="canonical" href="https://lchkid.top/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/">
 
 
 <script id="page-configurations">
@@ -50,7 +51,7 @@
   };
 </script>
 
-  <title>通过Github分支来在线备份Hexo | Kiddo's Blog</title>
+  <title>基于CentOS8通过Docker配置ASF实现Steam云挂卡 | Kiddo's Blog</title>
   
 
 
@@ -168,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/">
+    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/avatar.jpg">
@@ -181,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          通过Github分支来在线备份Hexo
+          基于CentOS8通过Docker配置ASF实现Steam云挂卡
         </h1>
 
         <div class="post-meta">
@@ -191,14 +192,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-05 22:20:16" itemprop="dateCreated datePublished" datetime="2020-03-05T22:20:16+08:00">2020-03-05</time>
+              <time title="创建时间：2020-03-06 13:39:56" itemprop="dateCreated datePublished" datetime="2020-03-06T13:39:56+08:00">2020-03-06</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-14 11:32:58" itemprop="dateModified" datetime="2020-05-14T11:32:58+08:00">2020-05-14</time>
+                <time title="修改时间：2021-07-22 15:27:02" itemprop="dateModified" datetime="2021-07-22T15:27:02+08:00">2021-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -206,12 +207,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">博客相关</span></a>
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">运维相关</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/" class="post-meta-item leancloud_visitors" data-flag-title="通过Github分支来在线备份Hexo" title="阅读次数">
+            <span id="/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" class="post-meta-item leancloud_visitors" data-flag-title="基于CentOS8通过Docker配置ASF实现Steam云挂卡" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -226,8 +227,8 @@
       </span>
       <span class="post-meta-item-text">评论次数：</span>
     
-    <a title="valine" href="/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -242,55 +243,44 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<a href="/2020/Hexo更换Next主题/">更换完Hexo的主题</a>后，博客大致就搭建完毕了，这时我们又遇到一个问题，如果我们更换了电脑或者VPS到期了，除了拷贝整个文件夹还有什么好方法可以备份Hexo呢？这次我们就通过git分支功能来备份。</p>
-<h2 id="备份步骤"><a href="#备份步骤" class="headerlink" title="备份步骤"></a>备份步骤</h2><h3 id="在hexo目录创建本地仓库"><a href="#在hexo目录创建本地仓库" class="headerlink" title="在hexo目录创建本地仓库"></a>在hexo目录创建本地仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br></pre></td></tr></table></figure>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>假期Steam喜+1多了之后又没那么多时间玩，所以想着拿ArchiSteamFarm（以下简称ASF）来挂下卡，去官方文档一看，<code>v3.0.3.2</code>版本之后ASF已经有<a href="https://hub.docker.com/r/justarchi/archisteamfarm" target="_blank" rel="noopener">官方镜像</a>了，以前还需要用Screen来后台挂卡，这回直接上Docker。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装并启动Docker"><a href="#安装并启动Docker" class="headerlink" title="安装并启动Docker"></a>安装并启动Docker</h3><p>步骤很简单，先卸载老版本，然后添加yum源，最后安装<code>docker-ce</code>（社区版本）就好了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> yum remove docker docker-client \</span></span><br><span class="line">                    docker-client-latest \</span><br><span class="line">                    docker-common \</span><br><span class="line">                    docker-latest \</span><br><span class="line">                    docker-latest-logrotate \</span><br><span class="line">                    docker-logrotate \</span><br><span class="line">                    docker-engine</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum install -y yum-utils \</span></span><br><span class="line">                 device-mapper-persistent-data \</span><br><span class="line">                 lvm2</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum-config-manager --add-repo \</span></span><br><span class="line">		             https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum install -y docker-ce docker-ce-cli containerd.io</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> systemctl start docker</span></span><br></pre></td></tr></table></figure>
+
 
 <a id="more"></a>
 
-<h3 id="添加远程仓库并设置别名为origin"><a href="#添加远程仓库并设置别名为origin" class="headerlink" title="添加远程仓库并设置别名为origin"></a>添加远程仓库并设置别名为origin</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:lchkid/lchkid.github.io.git</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="新建并切换到分支hexo"><a href="#新建并切换到分支hexo" class="headerlink" title="新建并切换到分支hexo"></a>新建并切换到分支hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -b hexo</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="配置忽略文件"><a href="#配置忽略文件" class="headerlink" title="配置忽略文件"></a>配置忽略文件</h3><p>查看hexo目录下的<code>.gitignore</code>文件，若无则新建：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules&#x2F;</span><br><span class="line">public&#x2F;</span><br><span class="line">.deploy*&#x2F;</span><br></pre></td></tr></table></figure>
+<h3 id="下载ASF官方镜像"><a href="#下载ASF官方镜像" class="headerlink" title="下载ASF官方镜像"></a>下载ASF官方镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull justarchi/archisteamfarm</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>该文件会忽略目录中hexo渲染完后生成的<code>public</code>目录和<code>.deploy_git</code>目录</p>
+<p>可以根据实际情况选择镜像，不过ASF最新版支持自动更新，不用重新创建容器，建议latest。</p>
 </blockquote>
-<h3 id="添加hexo目录到本地仓库"><a href="#添加hexo目录到本地仓库" class="headerlink" title="添加hexo目录到本地仓库"></a>添加hexo目录到本地仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add .</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"Blog Initial"</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="推送到远程仓库的hexo分支"><a href="#推送到远程仓库的hexo分支" class="headerlink" title="推送到远程仓库的hexo分支"></a>推送到远程仓库的hexo分支</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin hexo:hexo</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>第一次push需要用-u关联，之后就不用-u了。</p>
+<h2 id="配置ASF"><a href="#配置ASF" class="headerlink" title="配置ASF"></a>配置ASF</h2><h3 id="创建ASF容器"><a href="#创建ASF容器" class="headerlink" title="创建ASF容器"></a>创建ASF容器</h3><blockquote>
+<p>ASF官方镜像的WORKDIR是/app，为了以后配置方便，做一个数据卷指向/app/config来修改json文件。</p>
 </blockquote>
-<h3 id="检查远程仓库"><a href="#检查远程仓库" class="headerlink" title="检查远程仓库"></a>检查远程仓库</h3><p>登陆Github查看<code>lchkid.github.io</code>仓库是否新增了hexo分支并包含所有自定义文件：</p>
-<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0305/github%E5%88%86%E6%94%AF%E6%88%AA%E5%9B%BE.png" alt=""></p>
-<p>以后定期push即可：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo clean</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add .</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">""</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin hexo:hexo</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -it -v <span class="variable">$PWD</span>/asf:/app/config --name=asf justarchi/archisteamfarm</span></span><br></pre></td></tr></table></figure>
 
+<p>此时如果返回下图所示的提示，说明ASF容器已经创建成功，直接<code>CTRL+D</code>退出即可：</p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0306/Docker%E9%85%8D%E7%BD%AEASF%E6%8F%90%E7%A4%BA.png" alt=""></p>
+<h3 id="配置config文件"><a href="#配置config文件" class="headerlink" title="配置config文件"></a>配置<code>config</code>文件</h3><p>到官方提供的<a href="https://justarchinet.github.io/ASF-WebConfigGenerator/#/" target="_blank" rel="noopener">在线配置文件生成器</a>页面分别配置好全局配置文件和机器人配置文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ASF.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"s_SteamOwnerID"</span>: <span class="string">""</span>,  <span class="comment">//steam64位ID，可以在https://steamrepcn.com/找到</span></span><br><span class="line">  <span class="attr">"CurrentCulture"</span>: <span class="string">"zh-CN"</span>,  <span class="comment">//更改为中文</span></span><br><span class="line">  <span class="attr">"IPC"</span>: <span class="literal">true</span>  <span class="comment">//启用IPC</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Botname.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"SteamLogin"</span>: <span class="string">""</span>,  <span class="comment">//steam用户名</span></span><br><span class="line">  <span class="attr">"SteamPassword"</span>: <span class="string">""</span>,  <span class="comment">//steam密码</span></span><br><span class="line">  <span class="attr">"Enabled"</span>: <span class="literal">true</span>,  <span class="comment">//必须启用</span></span><br><span class="line">  <span class="attr">"CustomGamePlayedWhileFarming"</span>: <span class="string">"贪玩蓝月"</span>  <span class="comment">//挂卡显示非steam自定义游戏</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="导入配置文件"><a href="#导入配置文件" class="headerlink" title="导入配置文件"></a>导入配置文件</h3><p>在宿主机上将上面配置好的json文件放到<code>/asf</code>目录中。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mv ASF.json Botname.json -t /asf</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="重新启动ASF容器"><a href="#重新启动ASF容器" class="headerlink" title="重新启动ASF容器"></a>重新启动ASF容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker start asf</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker attach asf</span></span><br></pre></td></tr></table></figure>
 
-
-<h2 id="还原步骤"><a href="#还原步骤" class="headerlink" title="还原步骤"></a>还原步骤</h2><h3 id="搭建git、node-js环境并配置SSH和git"><a href="#搭建git、node-js环境并配置SSH和git" class="headerlink" title="搭建git、node.js环境并配置SSH和git"></a>搭建git、node.js环境并配置SSH和git</h3><p>详见<a href="/2020/03/05/CentOS搭建Hexo并发布到GithubPages简单教程">CentOS搭建Hexo并发布到GithubPages简单教程</a></p>
-<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install -g hexo-cli</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="从git分支clone主目录"><a href="#从git分支clone主目录" class="headerlink" title="从git分支clone主目录"></a>从git分支clone主目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> -b hexo git@github.com:lchkid/lchkid.github.io.git</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Tips：如果在github的setting中设置hexo为default，就可以直接git clone而不加-b参数了。</p>
-</blockquote>
-<h3 id="hexo初始化"><a href="#hexo初始化" class="headerlink" title="hexo初始化"></a>hexo初始化</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ./lchkid.github.io</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="hexo渲染和发布"><a href="#hexo渲染和发布" class="headerlink" title="hexo渲染和发布"></a>hexo渲染和发布</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo g -d</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
+<p>此时再按提示输入两步验证的验证码或者steam令牌就可以开始挂卡了。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ol>
+<li>可以通过<code>docker stop asf</code>和<code>docker start asf</code>来停止和启动挂卡。</li>
+<li>通过<code>docker logs -f asf</code>来获取ASF运行日志。</li>
+<li>在创建容器时可以添加端口映射<code>-p 127.0.0.1:1242:1242 -p [::1]:1242:1242</code>来通过宿主机 <a href="http://localhost:1242" target="_blank" rel="noopener">http://localhost:1242</a> 访问ASF。</li>
+<li>配置完毕后可以通过修改全局配置文件中的<code>Headless</code>属性为<code>true</code>来关闭控制台输入。</li>
+<li>修改全局配置文件中的<code>SteamMasterClanID</code>属性可以通过steam组来控制ASF，详见<a href="https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration-zh-CN#steammasterclanid" target="_blank" rel="noopener">官方文档</a>。</li>
+</ol>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
-<p><a href="https://www.zhihu.com/question/21193762/answer/489124966" target="_blank" rel="noopener">https://www.zhihu.com/question/21193762/answer/489124966</a><br><a href="https://quareia.github.io/blog/6efb1d64/" target="_blank" rel="noopener">https://quareia.github.io/blog/6efb1d64/</a><br><a href="https://stackoverflow.com/questions/15681643/how-to-clone-git-repository-from-its-zip" target="_blank" rel="noopener">https://stackoverflow.com/questions/15681643/how-to-clone-git-repository-from-its-zip</a></p>
+<p><a href="https://github.com/JustArchiNET/ArchiSteamFarm/wiki/" target="_blank" rel="noopener">https://github.com/JustArchiNET/ArchiSteamFarm/wiki/</a></p>
 </blockquote>
 
     </div>
@@ -307,7 +297,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/" title="通过Github分支来在线备份Hexo">https://lchkid.top/2020/通过Github分支来在线备份Hexo/</a>
+    <a href="https://lchkid.top/2020/%E5%9F%BA%E4%BA%8ECentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" title="基于CentOS8通过Docker配置ASF实现Steam云挂卡">https://lchkid.top/2020/基于CentOS8通过Docker配置ASF实现Steam云挂卡/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -318,8 +308,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
-              <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+              <a href="/tags/Steam/" rel="tag"><i class="fa fa-tag"></i> Steam</a>
+              <a href="/tags/ASF/" rel="tag"><i class="fa fa-tag"></i> ASF</a>
           </div>
 
         
@@ -328,12 +319,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/Hexo%E6%9B%B4%E6%8D%A2Next%E4%B8%BB%E9%A2%98/" rel="prev" title="Hexo更换Next主题">
-      <i class="fa fa-chevron-left"></i> Hexo更换Next主题
+    <a href="/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E5%AE%9E%E7%8E%B0Hexo%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BD/" rel="prev" title="通过Github分支实现Hexo在线备份">
+      <i class="fa fa-chevron-left"></i> 通过Github分支实现Hexo在线备份
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" rel="next" title="CentOS8通过Docker配置ASF实现Steam云挂卡">
-      CentOS8通过Docker配置ASF实现Steam云挂卡 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/Hexo%E4%B8%BB%E9%A2%98Next%E8%BF%9B%E9%98%B6%E7%BE%8E%E5%8C%96/" rel="next" title="Hexo主题Next进阶美化">
+      Hexo主题Next进阶美化 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -395,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份步骤"><span class="nav-number">2.</span> <span class="nav-text">备份步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在hexo目录创建本地仓库"><span class="nav-number">2.1.</span> <span class="nav-text">在hexo目录创建本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库并设置别名为origin"><span class="nav-number">2.2.</span> <span class="nav-text">添加远程仓库并设置别名为origin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建并切换到分支hexo"><span class="nav-number">2.3.</span> <span class="nav-text">新建并切换到分支hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置忽略文件"><span class="nav-number">2.4.</span> <span class="nav-text">配置忽略文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加hexo目录到本地仓库"><span class="nav-number">2.5.</span> <span class="nav-text">添加hexo目录到本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送到远程仓库的hexo分支"><span class="nav-number">2.6.</span> <span class="nav-text">推送到远程仓库的hexo分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查远程仓库"><span class="nav-number">2.7.</span> <span class="nav-text">检查远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还原步骤"><span class="nav-number">3.</span> <span class="nav-text">还原步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建git、node-js环境并配置SSH和git"><span class="nav-number">3.1.</span> <span class="nav-text">搭建git、node.js环境并配置SSH和git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装hexo"><span class="nav-number">3.2.</span> <span class="nav-text">安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从git分支clone主目录"><span class="nav-number">3.3.</span> <span class="nav-text">从git分支clone主目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo初始化"><span class="nav-number">3.4.</span> <span class="nav-text">hexo初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo渲染和发布"><span class="nav-number">3.5.</span> <span class="nav-text">hexo渲染和发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装并启动Docker"><span class="nav-number">2.1.</span> <span class="nav-text">安装并启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载ASF官方镜像"><span class="nav-number">2.2.</span> <span class="nav-text">下载ASF官方镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ASF"><span class="nav-number">3.</span> <span class="nav-text">配置ASF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建ASF容器"><span class="nav-number">3.1.</span> <span class="nav-text">创建ASF容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置config文件"><span class="nav-number">3.2.</span> <span class="nav-text">配置config文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入配置文件"><span class="nav-number">3.3.</span> <span class="nav-text">导入配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新启动ASF容器"><span class="nav-number">3.4.</span> <span class="nav-text">重新启动ASF容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">4.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

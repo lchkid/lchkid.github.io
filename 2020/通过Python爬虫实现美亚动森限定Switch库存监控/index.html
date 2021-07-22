@@ -24,21 +24,21 @@
 
   <meta name="description" content="前言最近这波动森大火，搞得我心痒痒想买一个Switch玩，结果看到淘宝上的动森限定动辄小4000，实在不想当冤大头，就动起海淘的小心思。日亚是不想了，美亚隔一段时间还会补个货，靠自己盯着肯定不靠谱，所以就准备搞个小代码来监控一下。 准备工作Python最适合干这种脏活累活，抓取美亚动森限定的网页，看是否有货就行了。 整体架构   模块 功能    monitor.py 主监控程序   getPro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用Python监控美亚动森限定Switch库存">
-<meta property="og:url" content="https://lchkid.top/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/index.html">
+<meta property="og:title" content="通过Python爬虫实现美亚动森限定Switch库存监控">
+<meta property="og:url" content="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/index.html">
 <meta property="og:site_name" content="Kiddo&#39;s Blog">
 <meta property="og:description" content="前言最近这波动森大火，搞得我心痒痒想买一个Switch玩，结果看到淘宝上的动森限定动辄小4000，实在不想当冤大头，就动起海淘的小心思。日亚是不想了，美亚隔一段时间还会补个货，靠自己盯着肯定不靠谱，所以就准备搞个小代码来监控一下。 准备工作Python最适合干这种脏活累活，抓取美亚动森限定的网页，看是否有货就行了。 整体架构   模块 功能    monitor.py 主监控程序   getPro">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0329/monitor.png">
 <meta property="article:published_time" content="2020-03-29T07:36:08.000Z">
-<meta property="article:modified_time" content="2020-05-14T03:32:58.034Z">
+<meta property="article:modified_time" content="2021-07-22T07:27:03.564Z">
 <meta property="article:author" content="lchkid">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="爬虫">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0329/monitor.png">
 
-<link rel="canonical" href="https://lchkid.top/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/">
+<link rel="canonical" href="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>利用Python监控美亚动森限定Switch库存 | Kiddo's Blog</title>
+  <title>通过Python爬虫实现美亚动森限定Switch库存监控 | Kiddo's Blog</title>
   
 
 
@@ -168,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/">
+    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/avatar.jpg">
@@ -181,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          利用Python监控美亚动森限定Switch库存
+          通过Python爬虫实现美亚动森限定Switch库存监控
         </h1>
 
         <div class="post-meta">
@@ -198,7 +198,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-14 11:32:58" itemprop="dateModified" datetime="2020-05-14T11:32:58+08:00">2020-05-14</time>
+                <time title="修改时间：2021-07-22 15:27:03" itemprop="dateModified" datetime="2021-07-22T15:27:03+08:00">2021-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -211,7 +211,7 @@
             </span>
 
           
-            <span id="/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/" class="post-meta-item leancloud_visitors" data-flag-title="利用Python监控美亚动森限定Switch库存" title="阅读次数">
+            <span id="/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/" class="post-meta-item leancloud_visitors" data-flag-title="通过Python爬虫实现美亚动森限定Switch库存监控" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -226,8 +226,8 @@
       </span>
       <span class="post-meta-item-text">评论次数：</span>
     
-    <a title="valine" href="/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -329,7 +329,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lchkid.top/2020/%E5%88%A9%E7%94%A8Python%E7%9B%91%E6%8E%A7%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98/" title="利用Python监控美亚动森限定Switch库存">https://lchkid.top/2020/利用Python监控美亚动森限定Switch库存/</a>
+    <a href="https://lchkid.top/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/" title="通过Python爬虫实现美亚动森限定Switch库存监控">https://lchkid.top/2020/通过Python爬虫实现美亚动森限定Switch库存监控/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -350,12 +350,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/CentOS8%E5%9F%BA%E4%BA%8EMySQL8.0.17%E5%92%8CNginx%E9%83%A8%E7%BD%B2Zabbix4.4/" rel="prev" title="CentOS8基于MySQL8.0.17和Nginx部署Zabbix4.4">
-      <i class="fa fa-chevron-left"></i> CentOS8基于MySQL8.0.17和Nginx部署Zabbix4.4
+    <a href="/2020/%E5%9F%BA%E4%BA%8ECentOS8%E4%B8%8BMySQL8.0.17%E5%92%8CNginx%E7%9A%84Zabbix4.4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" rel="prev" title="基于CentOS8下MySQL8.0.17和Nginx的Zabbix4.4部署记录">
+      <i class="fa fa-chevron-left"></i> 基于CentOS8下MySQL8.0.17和Nginx的Zabbix4.4部署记录
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/L2TP%E5%8D%8F%E8%AE%AEVPN%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86/" rel="next" title="L2TP/IPsec协议VPN连接故障处理">
-      L2TP/IPsec协议VPN连接故障处理 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" rel="next" title="解决Windows系统L2TP协议的VPN连接报错问题">
+      解决Windows系统L2TP协议的VPN连接报错问题 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

@@ -22,24 +22,31 @@
     var CONFIG = {"hostname":"lchkid.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言假期Steam喜+1多了之后又没那么多时间玩，所以想着拿ArchiSteamFarm（以下简称ASF）来挂下卡，去官方文档一看，v3.0.3.2版本之后ASF已经有官方镜像了，以前还需要用Screen来后台挂卡，这回直接上Docker。 准备工作安装并启动Docker步骤很简单，先卸载老版本，然后添加yum源，最后安装docker-ce（社区版本）就好了。 123456789101112131">
+  <meta name="description" content="前言这年头用L2TP&#x2F;IPsec协议的真不多了，巧的是我司就是其中之一，以前用SSLVPN客户端登录的便利一去不复返，遇上“优化”过的WIN10系统报错茫茫多还不重样，就此记录下遇到过的故障和解决方案吧。 WIN7系统错误609错误说明指定了一个不存在的设备类型 解决方法一般重启就完事了。 如果还是不行可以试下打开服务，找到IPsec Policy Agent设为自动，重启电脑。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS8通过Docker配置ASF实现Steam云挂卡">
-<meta property="og:url" content="https://lchkid.top/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/index.html">
+<meta property="og:title" content="解决Windows系统L2TP协议的VPN连接报错问题">
+<meta property="og:url" content="https://lchkid.top/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Kiddo&#39;s Blog">
-<meta property="og:description" content="前言假期Steam喜+1多了之后又没那么多时间玩，所以想着拿ArchiSteamFarm（以下简称ASF）来挂下卡，去官方文档一看，v3.0.3.2版本之后ASF已经有官方镜像了，以前还需要用Screen来后台挂卡，这回直接上Docker。 准备工作安装并启动Docker步骤很简单，先卸载老版本，然后添加yum源，最后安装docker-ce（社区版本）就好了。 123456789101112131">
+<meta property="og:description" content="前言这年头用L2TP&#x2F;IPsec协议的真不多了，巧的是我司就是其中之一，以前用SSLVPN客户端登录的便利一去不复返，遇上“优化”过的WIN10系统报错茫茫多还不重样，就此记录下遇到过的故障和解决方案吧。 WIN7系统错误609错误说明指定了一个不存在的设备类型 解决方法一般重启就完事了。 如果还是不行可以试下打开服务，找到IPsec Policy Agent设为自动，重启电脑。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0306/Docker%E9%85%8D%E7%BD%AEASF%E6%8F%90%E7%A4%BA.png">
-<meta property="article:published_time" content="2020-03-06T05:39:56.000Z">
-<meta property="article:modified_time" content="2020-05-14T03:32:57.663Z">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/ProhibitIpSec.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/AssumeUDPEncapsulationContextOnSendRule.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/WANMiniport.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/DriverDesc.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F1.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F2.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F3.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F4.png">
+<meta property="og:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F5.png">
+<meta property="article:published_time" content="2020-12-02T03:04:08.000Z">
+<meta property="article:modified_time" content="2021-07-22T07:27:03.300Z">
 <meta property="article:author" content="lchkid">
-<meta property="article:tag" content="Docker">
-<meta property="article:tag" content="Steam">
-<meta property="article:tag" content="ASF">
+<meta property="article:tag" content="VPN">
+<meta property="article:tag" content="L2TP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0306/Docker%E9%85%8D%E7%BD%AEASF%E6%8F%90%E7%A4%BA.png">
+<meta name="twitter:image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/ProhibitIpSec.png">
 
-<link rel="canonical" href="https://lchkid.top/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/">
+<link rel="canonical" href="https://lchkid.top/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -51,7 +58,7 @@
   };
 </script>
 
-  <title>CentOS8通过Docker配置ASF实现Steam云挂卡 | Kiddo's Blog</title>
+  <title>解决Windows系统L2TP协议的VPN连接报错问题 | Kiddo's Blog</title>
   
 
 
@@ -169,7 +176,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/">
+    <link itemprop="mainEntityOfPage" href="https://lchkid.top/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/avatar.jpg">
@@ -182,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CentOS8通过Docker配置ASF实现Steam云挂卡
+          解决Windows系统L2TP协议的VPN连接报错问题
         </h1>
 
         <div class="post-meta">
@@ -192,14 +199,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-06 13:39:56" itemprop="dateCreated datePublished" datetime="2020-03-06T13:39:56+08:00">2020-03-06</time>
+              <time title="创建时间：2020-12-02 11:04:08" itemprop="dateCreated datePublished" datetime="2020-12-02T11:04:08+08:00">2020-12-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-14 11:32:57" itemprop="dateModified" datetime="2020-05-14T11:32:57+08:00">2020-05-14</time>
+                <time title="修改时间：2021-07-22 15:27:03" itemprop="dateModified" datetime="2021-07-22T15:27:03+08:00">2021-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,7 +219,7 @@
             </span>
 
           
-            <span id="/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" class="post-meta-item leancloud_visitors" data-flag-title="CentOS8通过Docker配置ASF实现Steam云挂卡" title="阅读次数">
+            <span id="/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" class="post-meta-item leancloud_visitors" data-flag-title="解决Windows系统L2TP协议的VPN连接报错问题" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -227,8 +234,8 @@
       </span>
       <span class="post-meta-item-text">评论次数：</span>
     
-    <a title="valine" href="/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -243,45 +250,77 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>假期Steam喜+1多了之后又没那么多时间玩，所以想着拿ArchiSteamFarm（以下简称ASF）来挂下卡，去官方文档一看，<code>v3.0.3.2</code>版本之后ASF已经有<a href="https://hub.docker.com/r/justarchi/archisteamfarm" target="_blank" rel="noopener">官方镜像</a>了，以前还需要用Screen来后台挂卡，这回直接上Docker。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装并启动Docker"><a href="#安装并启动Docker" class="headerlink" title="安装并启动Docker"></a>安装并启动Docker</h3><p>步骤很简单，先卸载老版本，然后添加yum源，最后安装<code>docker-ce</code>（社区版本）就好了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> yum remove docker docker-client \</span></span><br><span class="line">                    docker-client-latest \</span><br><span class="line">                    docker-common \</span><br><span class="line">                    docker-latest \</span><br><span class="line">                    docker-latest-logrotate \</span><br><span class="line">                    docker-logrotate \</span><br><span class="line">                    docker-engine</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum install -y yum-utils \</span></span><br><span class="line">                 device-mapper-persistent-data \</span><br><span class="line">                 lvm2</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum-config-manager --add-repo \</span></span><br><span class="line">		             https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum install -y docker-ce docker-ce-cli containerd.io</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> systemctl start docker</span></span><br></pre></td></tr></table></figure>
-
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这年头用<code>L2TP/IPsec</code>协议的真不多了，巧的是我司就是其中之一，以前用<code>SSLVPN</code>客户端登录的便利一去不复返，遇上“优化”过的WIN10系统报错茫茫多还不重样，就此记录下遇到过的故障和解决方案吧。</p>
+<h3 id="WIN7系统"><a href="#WIN7系统" class="headerlink" title="WIN7系统"></a>WIN7系统</h3><h4 id="错误609"><a href="#错误609" class="headerlink" title="错误609"></a>错误609</h4><h5 id="错误说明"><a href="#错误说明" class="headerlink" title="错误说明"></a>错误说明</h5><p>指定了一个不存在的设备类型</p>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><p>一般重启就完事了。</p>
+<p>如果还是不行可以试下打开服务，找到<code>IPsec Policy Agent</code>设为自动，重启电脑。</p>
 <a id="more"></a>
 
-
-<h3 id="下载ASF官方镜像"><a href="#下载ASF官方镜像" class="headerlink" title="下载ASF官方镜像"></a>下载ASF官方镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull justarchi/archisteamfarm</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>可以根据实际情况选择镜像，不过ASF最新版支持自动更新，不用重新创建容器，建议latest。</p>
-</blockquote>
-<h2 id="配置ASF"><a href="#配置ASF" class="headerlink" title="配置ASF"></a>配置ASF</h2><h3 id="创建ASF容器"><a href="#创建ASF容器" class="headerlink" title="创建ASF容器"></a>创建ASF容器</h3><blockquote>
-<p>ASF官方镜像的WORKDIR是/app，为了以后配置方便，做一个数据卷指向/app/config来修改json文件。</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -it -v <span class="variable">$PWD</span>/asf:/app/config --name=asf justarchi/archisteamfarm</span></span><br></pre></td></tr></table></figure>
-
-<p>此时如果返回下图所示的提示，说明ASF容器已经创建成功，直接<code>CTRL+D</code>退出即可：</p>
-<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/0306/Docker%E9%85%8D%E7%BD%AEASF%E6%8F%90%E7%A4%BA.png" alt=""></p>
-<h3 id="配置config文件"><a href="#配置config文件" class="headerlink" title="配置config文件"></a>配置<code>config</code>文件</h3><p>到官方提供的<a href="https://justarchinet.github.io/ASF-WebConfigGenerator/#/" target="_blank" rel="noopener">在线配置文件生成器</a>页面分别配置好全局配置文件和机器人配置文件。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ASF.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"s_SteamOwnerID"</span>: <span class="string">""</span>,  <span class="comment">//steam64位ID，可以在https://steamrepcn.com/找到</span></span><br><span class="line">  <span class="attr">"CurrentCulture"</span>: <span class="string">"zh-CN"</span>,  <span class="comment">//更改为中文</span></span><br><span class="line">  <span class="attr">"IPC"</span>: <span class="literal">true</span>  <span class="comment">//启用IPC</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Botname.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"SteamLogin"</span>: <span class="string">""</span>,  <span class="comment">//steam用户名</span></span><br><span class="line">  <span class="attr">"SteamPassword"</span>: <span class="string">""</span>,  <span class="comment">//steam密码</span></span><br><span class="line">  <span class="attr">"Enabled"</span>: <span class="literal">true</span>,  <span class="comment">//必须启用</span></span><br><span class="line">  <span class="attr">"CustomGamePlayedWhileFarming"</span>: <span class="string">"贪玩蓝月"</span>  <span class="comment">//挂卡显示非steam自定义游戏</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="导入配置文件"><a href="#导入配置文件" class="headerlink" title="导入配置文件"></a>导入配置文件</h3><p>在宿主机上将上面配置好的json文件放到<code>/asf</code>目录中。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mv ASF.json Botname.json -t /asf</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="重新启动ASF容器"><a href="#重新启动ASF容器" class="headerlink" title="重新启动ASF容器"></a>重新启动ASF容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker start asf</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker attach asf</span></span><br></pre></td></tr></table></figure>
-
-<p>此时再按提示输入两步验证的验证码或者steam令牌就可以开始挂卡了。</p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ol>
-<li>可以通过<code>docker stop asf</code>和<code>docker start asf</code>来停止和启动挂卡。</li>
-<li>通过<code>docker logs -f asf</code>来获取ASF运行日志。</li>
-<li>在创建容器时可以添加端口映射<code>-p 127.0.0.1:1242:1242 -p [::1]:1242:1242</code>来通过宿主机 <a href="http://localhost:1242" target="_blank" rel="noopener">http://localhost:1242</a> 访问ASF。</li>
-<li>配置完毕后可以通过修改全局配置文件中的<code>Headless</code>属性为<code>true</code>来关闭控制台输入。</li>
-<li>修改全局配置文件中的<code>SteamMasterClanID</code>属性可以通过steam组来控制ASF，详见<a href="https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration-zh-CN#steammasterclanid" target="_blank" rel="noopener">官方文档</a>。</li>
+<h4 id="错误809"><a href="#错误809" class="headerlink" title="错误809"></a>错误809</h4><h5 id="错误说明-1"><a href="#错误说明-1" class="headerlink" title="错误说明"></a>错误说明</h5><p>无法建立计算机与 VPN 服务器之间的网络连接，因为远程服务器未响应。这可能是因为未将计算机与远程服务器之间的某种网络设备(如防火墙、NAT、路由器等)配置为允许 VPN 连接。</p>
+<h5 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a>解决方法</h5><ol>
+<li><p>打开注册表</p>
+</li>
+<li><p>找到<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\RasMan\Parameters</code></p>
+</li>
+<li><p>新建一个<code>DWORD</code>值，名称为<code>ProhibitIpSec</code>，数值为<code>1</code></p>
+</li>
 </ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
-<p><a href="https://github.com/JustArchiNET/ArchiSteamFarm/wiki/" target="_blank" rel="noopener">https://github.com/JustArchiNET/ArchiSteamFarm/wiki/</a></p>
+<blockquote>
+<p>此键值为无需密钥<code>L2TP</code>连接</p>
 </blockquote>
+<p>   <img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/ProhibitIpSec.png" alt=""></p>
+<ol start="4">
+<li><p>找到<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PolicyAgent</code></p>
+</li>
+<li><p>新建一个<code>DWORD</code>值，名称为<code>AssumeUDPEncapsulationContextOnSendRule</code>，数值为<code>2</code></p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/AssumeUDPEncapsulationContextOnSendRule.png" alt=""></p>
+</li>
+</ol>
+<blockquote>
+<p>或者新建一个<code>.reg</code>注册表文件，输入以下内容保存双击运行即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00 </span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\RasMan\Parameters]</span><br><span class="line">&quot;ProhibitIpSec&quot;&#x3D;dword:00000001</span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PolicyAgent]</span><br><span class="line">&quot;AssumeUDPEncapsulationContextOnSendRule&quot;&#x3D;dword:00000002</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ol start="6">
+<li>最后重启电脑再次尝试连接。</li>
+</ol>
+<h3 id="WIN10系统"><a href="#WIN10系统" class="headerlink" title="WIN10系统"></a>WIN10系统</h3><h4 id="错误720"><a href="#错误720" class="headerlink" title="错误720"></a>错误720</h4><h5 id="错误说明-2"><a href="#错误说明-2" class="headerlink" title="错误说明"></a>错误说明</h5><p>不能建立到远程计算机的连接。你可能需要更改此连接的网络设置。</p>
+<h5 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a>解决方法</h5><p>这是因为TCP/IP协议故障导致的，所以找到设备管理器中的网络适配器，一般会有一个打了黄色叹号的<code>WAN Miniport(IP)</code></p>
+<ol>
+<li><p>右键属性-详细信息-驱动程序关键字，记住这个值</p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/WANMiniport.png" alt=""></p>
+</li>
+<li><p>打开注册表</p>
+</li>
+<li><p>找到<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0010</code></p>
+</li>
+</ol>
+<blockquote>
+<p>部分设备也可能是0011，具体参照第一步的关键字数值</p>
+</blockquote>
+<ol start="4">
+<li><p>删除如下图所示的<code>DriverDesc</code>键值</p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/DriverDesc.png" alt=""></p>
+</li>
+<li><p>开始重新安装<code>WAN Miniport(IP)</code>的驱动，首先更新成错误的驱动，右键更新驱动程序，并按下方图示顺序操作</p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F1.png" alt=""></p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F2.png" alt=""></p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F3.png" alt=""></p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F4.png" alt=""></p>
+</li>
+<li><p>此时，原先的<code>WAN Miniport(IP)</code>将会显示为<strong>蓝牙设备</strong></p>
+</li>
+<li><p>选中该蓝牙设备，右键更新驱动程序，重装为正确的<code>WAN 微型端口(IP)</code>驱动即可。</p>
+<p><img src="https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/2020/1202/%E6%9B%B4%E6%96%B0%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F5.png" alt=""></p>
+</li>
+</ol>
+<h4 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h4><h5 id="错误说明-3"><a href="#错误说明-3" class="headerlink" title="错误说明"></a>错误说明</h5><p>L2TP连接尝试失败，因为安全层在初始化与远程计算机的协商时遇到了一个处理错误。</p>
+<h5 id="解决方法-3"><a href="#解决方法-3" class="headerlink" title="解决方法"></a>解决方法</h5><ol>
+<li>在运行中输入<code>services.msc</code>打开服务</li>
+<li>找到<code>IPsec Policy Agent</code>、<code>Remote Access Connection Manager</code>和<code>Routing and Remote Access</code></li>
+<li>右键属性设为自动，重启电脑再次尝试连接</li>
+</ol>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a href="https://me.jinchuang.org/archives/369.html" target="_blank" rel="noopener">https://me.jinchuang.org/archives/369.html</a></p>
+<p><a href="http://www.shenduwin8.com/jiaocheng/win8/8064.html" target="_blank" rel="noopener">http://www.shenduwin8.com/jiaocheng/win8/8064.html</a></p>
 
     </div>
 
@@ -297,7 +336,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://lchkid.top/2020/CentOS8%E9%80%9A%E8%BF%87Docker%E9%85%8D%E7%BD%AEASF%E5%AE%9E%E7%8E%B0Steam%E4%BA%91%E6%8C%82%E5%8D%A1/" title="CentOS8通过Docker配置ASF实现Steam云挂卡">https://lchkid.top/2020/CentOS8通过Docker配置ASF实现Steam云挂卡/</a>
+    <a href="https://lchkid.top/2020/%E8%A7%A3%E5%86%B3Windows%E7%B3%BB%E7%BB%9FL2TP%E5%8D%8F%E8%AE%AE%E7%9A%84VPN%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" title="解决Windows系统L2TP协议的VPN连接报错问题">https://lchkid.top/2020/解决Windows系统L2TP协议的VPN连接报错问题/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -308,9 +347,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
-              <a href="/tags/Steam/" rel="tag"><i class="fa fa-tag"></i> Steam</a>
-              <a href="/tags/ASF/" rel="tag"><i class="fa fa-tag"></i> ASF</a>
+              <a href="/tags/VPN/" rel="tag"><i class="fa fa-tag"></i> VPN</a>
+              <a href="/tags/L2TP/" rel="tag"><i class="fa fa-tag"></i> L2TP</a>
           </div>
 
         
@@ -319,12 +357,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/%E9%80%9A%E8%BF%87Github%E5%88%86%E6%94%AF%E6%9D%A5%E5%9C%A8%E7%BA%BF%E5%A4%87%E4%BB%BDHexo/" rel="prev" title="通过Github分支来在线备份Hexo">
-      <i class="fa fa-chevron-left"></i> 通过Github分支来在线备份Hexo
+    <a href="/2020/%E9%80%9A%E8%BF%87Python%E7%88%AC%E8%99%AB%E5%AE%9E%E7%8E%B0%E7%BE%8E%E4%BA%9A%E5%8A%A8%E6%A3%AE%E9%99%90%E5%AE%9ASwitch%E5%BA%93%E5%AD%98%E7%9B%91%E6%8E%A7/" rel="prev" title="通过Python爬虫实现美亚动森限定Switch库存监控">
+      <i class="fa fa-chevron-left"></i> 通过Python爬虫实现美亚动森限定Switch库存监控
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/Next%E8%BF%9B%E9%98%B6%E7%BE%8E%E5%8C%96/" rel="next" title="Next进阶美化">
-      Next进阶美化 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/%E9%80%9A%E8%BF%87SNMP%E5%92%8CSelenium%E5%AE%9E%E7%8E%B0H3C%E9%98%B2%E7%81%AB%E5%A2%99%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/" rel="next" title="通过SNMP和Selenium实现H3C防火墙流量监控告警">
+      通过SNMP和Selenium实现H3C防火墙流量监控告警 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -386,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装并启动Docker"><span class="nav-number">2.1.</span> <span class="nav-text">安装并启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载ASF官方镜像"><span class="nav-number">2.2.</span> <span class="nav-text">下载ASF官方镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ASF"><span class="nav-number">3.</span> <span class="nav-text">配置ASF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建ASF容器"><span class="nav-number">3.1.</span> <span class="nav-text">创建ASF容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置config文件"><span class="nav-number">3.2.</span> <span class="nav-text">配置config文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入配置文件"><span class="nav-number">3.3.</span> <span class="nav-text">导入配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新启动ASF容器"><span class="nav-number">3.4.</span> <span class="nav-text">重新启动ASF容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">4.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WIN7系统"><span class="nav-number">2.</span> <span class="nav-text">WIN7系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#错误609"><span class="nav-number">2.1.</span> <span class="nav-text">错误609</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#错误说明"><span class="nav-number">2.1.1.</span> <span class="nav-text">错误说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误809"><span class="nav-number">2.2.</span> <span class="nav-text">错误809</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#错误说明-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">错误说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WIN10系统"><span class="nav-number">3.</span> <span class="nav-text">WIN10系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#错误720"><span class="nav-number">3.1.</span> <span class="nav-text">错误720</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#错误说明-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">错误说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法-2"><span class="nav-number">3.1.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误"><span class="nav-number">3.2.</span> <span class="nav-text">错误</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#错误说明-3"><span class="nav-number">3.2.1.</span> <span class="nav-text">错误说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法-3"><span class="nav-number">3.2.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文档"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
