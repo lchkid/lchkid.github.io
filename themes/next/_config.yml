@@ -40,10 +40,10 @@ custom_file_path:
 # ---------------------------------------------------------------
 
 favicon:
-  small: https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/favicon-16x16-next.png
-  medium: https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/favicon-32x32-next.png
-  apple_touch_icon: https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/apple-touch-icon-next.png
-  safari_pinned_tab: https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/logo.svg
+  small: /images/favicon-16x16-next.png
+  medium: /images/favicon-32x32-next.png
+  apple_touch_icon: /images/apple-touch-icon-next.png
+  safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -78,8 +78,8 @@ footer:
 
   # Beian ICP and gongan information for Chinese users. See: http://www.beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
-    enable: false
-    icp:
+    enable: true
+    icp: "浙ICP备20017609号-1"
     # The digit in the num of gongan beian.
     gongan_id:
     # The full num of gongan beian.
@@ -171,7 +171,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: https://6672-frontend-14e7e9-1301456226.tcb.qcloud.la/blog/image/config/avatar.jpg
+  url: /images/avatar.jpg
   # If true, the avatar will be dispalyed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
